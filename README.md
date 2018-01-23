@@ -22,7 +22,7 @@ Optional (to include battery voltage meter):
     
 If you have all the components you can assamble it following the next schema.
 
-![BikePixel schema](./docs/BikePixel sketch_protoboard.png "BikePixel sketch")
+![BikePixel schema]("./docs/BikePixel sketch_protoboard.png" "BikePixel sketch")
 
     
 ## Sketches
