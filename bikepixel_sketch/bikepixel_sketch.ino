@@ -50,10 +50,15 @@ const int PIN_REM_BRG_BTN = 4;
 
 /** modes:
  *  0 - off
- *  1 - full red square
- *  2 - red circle 
- *  3 - red circle that changes in intensity
- *  4 - changing red squares 
+ *  1 - full red square 
+ *  2 - full red square blink effect (that changes in intensity)
+ *  3 - red circle 
+ *  4 - red circle blink effect
+ *  5 - changing red squares 
+ *  
+ *  
+ *  8 - Alien
+ *  9 - Christmas tree
  */
 int mode = 0;
 int buttonState = 0; 
@@ -101,18 +106,36 @@ void updateBrightEffect() {
   matrix.setBrightness(brightState);
   matrix.show();
 }
+
+void drawInvader(uint32_t c) {
+  matrix.drawPixel(1, 0, c);        
+  matrix.drawPixel(6, 0, c);
+  matrix.drawFastHLine(2, 1, 4, c);
+  matrix.drawFastHLine(1, 2, 6, c);
+  matrix.drawFastHLine(0, 3, 2, c);
+  matrix.drawFastHLine(3, 3, 2, c);
+  matrix.drawFastHLine(6, 3, 2, c);
+  matrix.drawFastHLine(1, 4, 6, c);
+  matrix.drawPixel(1, 5, c);        
+  matrix.drawPixel(6, 5, c);
+  matrix.drawPixel(2, 6, c);        
+  matrix.drawPixel(5, 6, c);
+}
     
 void loop() {
   if (checkModeButton(PIN_MODE_BTN)) {
     if (mode == 0) {
       matrix.fillScreen(0);
-    } else if (mode == 1) {
+    } else if ((mode == 1) || (mode == 2)) {
       matrix.fillScreen(matrix.Color(255, 0, 0));
+    } else if (mode == 9) {
+      matrix.fillScreen(0);
+      drawInvader(matrix.Color(180, 0, 255));
     }
     matrix.show(); // Sends the updated pixel colors to the hardware.
     delay(100);
   }
-  if (mode == 1) {
+  if (mode == 2) {
     updateBrightEffect();
     delay(50);
   }
