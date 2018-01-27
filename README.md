@@ -39,6 +39,8 @@ At the docs folder you can find the sketches and the draws with schemas and case
 ### Case
 The case is designed to be made joining three layers of plexy. The base is made of 1 mm plexy black board, then the middle should have 4 o 5 mm and the final should be 1 mm of transparent plexy. The design and draws can be found at docs/case folder. The final result should look similar to:
 
+![BikePixel case](https://github.com/kstopa/bikepixel/blob/master/docs/case/case.png "BikePixel Case")
+
 
 ### PCB
 The PCB encapsulates the buttons and manage connections from Arduino to the neopixel matrix. It desing is shown belllow:
