@@ -68,4 +68,3 @@ Bellow you can find additional documentation and interesting stuff related with 
 * [Creation of a custom PCB on Fritzing](http://fritzing.org/pcb-custom-shape/). Note that if you use Incskape you should edit the SVG file (Saved as plain SVG) manually in any text editor and change the layer names (e.g `<g id="L4123">` to `<g id="silkscreen 1">`).
 
 
-
