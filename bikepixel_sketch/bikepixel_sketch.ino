@@ -31,22 +31,23 @@ NEO_RGB                   Pixels are wired for RGB bitstream (v1 FLORA pixels, n
 -----------------------------------------------------------------------*/
 #define FACTORYRESET_ENABLE     1
 
-#define PIN                     6   // Which pin on the Arduino is connected to the NeoPixels?
+#define PIN_MODE_BTN            4
+#define PIN_ADD_BRG_BTN         5
+#define PIN_REM_BRG_BTN         6
+#define PIN_NEO_PIXEL           7   
      
 // Example for NeoPixel 8x8 Matrix.  In this application we'd like to use it 
 // with the back text positioned along the bottom edge.
 // When held that way, the first pixel is at the top left, and
 // lines are arranged in columns, zigzag order.  The 8x8 matrix uses
 // 800 KHz (v2) pixels that expect GRB color data.
-Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, PIN,
+Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, PIN_NEO_PIXEL,
   NEO_MATRIX_TOP     + NEO_MATRIX_LEFT +
   NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG,
   NEO_GRB            + NEO_KHZ800);
 /*=========================================================================*/
 
-const int PIN_MODE_BTN = 2;
-const int PIN_ADD_BRG_BTN = 3;
-const int PIN_REM_BRG_BTN = 4;
+
 
 /** modes:
  *  0 - off
