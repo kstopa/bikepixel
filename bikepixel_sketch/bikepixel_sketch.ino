@@ -57,12 +57,12 @@ const int PIN_REM_BRG_BTN = 4;
  *  5 - changing red squares 
  *  
  *  
- *  8 - Alien
+ *  8 - Invader
  *  9 - Christmas tree
  */
 int mode = 0;
 int buttonState = 0; 
-int brightState = 2;
+int brightState = 10;
 int brightStep = 2;
 int brightMax = 50;
 
@@ -121,6 +121,23 @@ void drawInvader(uint32_t c) {
   matrix.drawPixel(2, 6, c);        
   matrix.drawPixel(5, 6, c);
 }
+
+void drawChristmasTree(uint32_t c_tree, uint32_t c_dec) {
+  matrix.drawFastHLine(3, 0, 2, matrix.Color(255, 255, 0)); // Yellow star
+  // Tree
+  matrix.drawFastHLine(3, 1, 2, c_tree);
+  matrix.drawFastHLine(2, 2, 4, c_tree);
+  matrix.drawFastHLine(2, 3, 4, c_tree);
+  matrix.drawFastHLine(1, 4, 6, c_tree);
+  matrix.drawFastHLine(1, 5, 6, c_tree);
+  matrix.drawFastHLine(0, 6, 8, c_tree);
+  // Trunk
+  matrix.drawFastHLine(3, 7, 2, matrix.Color(180, 130, 0));
+  // Decorations
+  matrix.drawPixel(3, 3, c_dec);
+  matrix.drawPixel(5, 4, c_dec);
+  matrix.drawPixel(2, 5, c_dec);
+}
     
 void loop() {
   if (checkModeButton(PIN_MODE_BTN)) {
@@ -128,9 +145,14 @@ void loop() {
       matrix.fillScreen(0);
     } else if ((mode == 1) || (mode == 2)) {
       matrix.fillScreen(matrix.Color(255, 0, 0));
-    } else if (mode == 9) {
+    } else if (mode == 7) {
+      
+    } else if (mode == 8) {
       matrix.fillScreen(0);
       drawInvader(matrix.Color(180, 0, 255));
+    } else if (mode == 9) {
+      matrix.fillScreen(0);
+      drawChristmasTree(matrix.Color(50, 140, 50), matrix.Color(200, 55, 55));
     }
     matrix.show(); // Sends the updated pixel colors to the hardware.
     delay(100);
