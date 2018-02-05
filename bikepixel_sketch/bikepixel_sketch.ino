@@ -56,8 +56,8 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, PIN_NEO_PIXEL,
  *  3 - red circle 
  *  4 - red circle blink effect
  *  5 - changing red squares 
- *  
- *  
+ *  6 - Skull
+ *  7 - PacMan
  *  8 - Invader
  *  9 - Christmas tree
  */
@@ -139,6 +139,20 @@ void drawChristmasTree(uint32_t c_tree, uint32_t c_dec) {
   matrix.drawPixel(5, 4, c_dec);
   matrix.drawPixel(2, 5, c_dec);
 }
+
+void drawSkull(uint32_t c) {
+  matrix.drawFastHLine(1, 0, 6, c);
+  matrix.drawFastHLine(1, 1, 6, c);
+  matrix.drawFastVLine(0, 1, 4, c);
+  matrix.drawFastVLine(7, 1, 4, c);
+  matrix.drawFastHLine(3, 2, 2, c);
+  matrix.drawFastHLine(2, 3, 4, c);
+  matrix.drawFastHLine(1, 4, 6, c);
+  matrix.drawFastHLine(1, 5, 6, c);
+  matrix.drawPixel(2, 6, c);
+  matrix.drawPixel(5, 6, c);
+  matrix.drawFastHLine(2, 7, 4, c);
+}
     
 void loop() {
   if (checkModeButton(PIN_MODE_BTN)) {
@@ -147,7 +161,8 @@ void loop() {
     } else if ((mode == 1) || (mode == 2)) {
       matrix.fillScreen(matrix.Color(255, 0, 0));
     } else if (mode == 7) {
-      
+      matrix.fillScreen(0);
+      drawSkull(matrix.Color(200, 200, 200));
     } else if (mode == 8) {
       matrix.fillScreen(0);
       drawInvader(matrix.Color(180, 0, 255));
