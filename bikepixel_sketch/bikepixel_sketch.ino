@@ -108,6 +108,11 @@ void updateBrightEffect() {
   matrix.show();
 }
 
+void drawDot(uint32_t c) {
+  
+  matrix.fillCircle(4, 4, 3, c);
+}
+
 void drawInvader(uint32_t c) {
   matrix.drawPixel(1, 0, c);        
   matrix.drawPixel(6, 0, c);
@@ -160,6 +165,9 @@ void loop() {
       matrix.fillScreen(0);
     } else if ((mode == 1) || (mode == 2)) {
       matrix.fillScreen(matrix.Color(255, 0, 0));
+    } else if ((mode == 3) || (mode == 4)) {
+      matrix.fillScreen(0);
+      drawDot(matrix.Color(255, 0, 0));
     } else if (mode == 7) {
       matrix.fillScreen(0);
       drawSkull(matrix.Color(200, 200, 200));
@@ -173,7 +181,7 @@ void loop() {
     matrix.show(); // Sends the updated pixel colors to the hardware.
     delay(100);
   }
-  if (mode == 2) {
+  if ((mode == 2) || (mode == 4)) {
     updateBrightEffect();
     delay(50);
   }
