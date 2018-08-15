@@ -31,22 +31,23 @@ NEO_RGB                   Pixels are wired for RGB bitstream (v1 FLORA pixels, n
 -----------------------------------------------------------------------*/
 #define FACTORYRESET_ENABLE     1
 
-#define PIN                     6   // Which pin on the Arduino is connected to the NeoPixels?
+#define PIN_MODE_BTN            4
+#define PIN_ADD_BRG_BTN         5
+#define PIN_REM_BRG_BTN         6
+#define PIN_NEO_PIXEL           7   
      
 // Example for NeoPixel 8x8 Matrix.  In this application we'd like to use it 
 // with the back text positioned along the bottom edge.
 // When held that way, the first pixel is at the top left, and
 // lines are arranged in columns, zigzag order.  The 8x8 matrix uses
 // 800 KHz (v2) pixels that expect GRB color data.
-Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, PIN,
+Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, PIN_NEO_PIXEL,
   NEO_MATRIX_TOP     + NEO_MATRIX_LEFT +
   NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG,
   NEO_GRB            + NEO_KHZ800);
 /*=========================================================================*/
 
-const int PIN_MODE_BTN = 2;
-const int PIN_ADD_BRG_BTN = 3;
-const int PIN_REM_BRG_BTN = 4;
+
 
 /** modes:
  *  0 - off
@@ -55,14 +56,14 @@ const int PIN_REM_BRG_BTN = 4;
  *  3 - red circle 
  *  4 - red circle blink effect
  *  5 - changing red squares 
- *  
- *  
- *  8 - Alien
+ *  6 - Skull
+ *  7 - PacMan
+ *  8 - Invader
  *  9 - Christmas tree
  */
 int mode = 0;
 int buttonState = 0; 
-int brightState = 2;
+int brightState = 10;
 int brightStep = 2;
 int brightMax = 50;
 
@@ -107,6 +108,11 @@ void updateBrightEffect() {
   matrix.show();
 }
 
+void drawDot(uint32_t c) {
+  
+  matrix.fillCircle(4, 4, 3, c);
+}
+
 void drawInvader(uint32_t c) {
   matrix.drawPixel(1, 0, c);        
   matrix.drawPixel(6, 0, c);
@@ -121,6 +127,37 @@ void drawInvader(uint32_t c) {
   matrix.drawPixel(2, 6, c);        
   matrix.drawPixel(5, 6, c);
 }
+
+void drawChristmasTree(uint32_t c_tree, uint32_t c_dec) {
+  matrix.drawFastHLine(3, 0, 2, matrix.Color(255, 255, 0)); // Yellow star
+  // Tree
+  matrix.drawFastHLine(3, 1, 2, c_tree);
+  matrix.drawFastHLine(2, 2, 4, c_tree);
+  matrix.drawFastHLine(2, 3, 4, c_tree);
+  matrix.drawFastHLine(1, 4, 6, c_tree);
+  matrix.drawFastHLine(1, 5, 6, c_tree);
+  matrix.drawFastHLine(0, 6, 8, c_tree);
+  // Trunk
+  matrix.drawFastHLine(3, 7, 2, matrix.Color(180, 130, 0));
+  // Decorations
+  matrix.drawPixel(3, 3, c_dec);
+  matrix.drawPixel(5, 4, c_dec);
+  matrix.drawPixel(2, 5, c_dec);
+}
+
+void drawSkull(uint32_t c) {
+  matrix.drawFastHLine(1, 0, 6, c);
+  matrix.drawFastHLine(1, 1, 6, c);
+  matrix.drawFastVLine(0, 1, 4, c);
+  matrix.drawFastVLine(7, 1, 4, c);
+  matrix.drawFastHLine(3, 2, 2, c);
+  matrix.drawFastHLine(2, 3, 4, c);
+  matrix.drawFastHLine(1, 4, 6, c);
+  matrix.drawFastHLine(1, 5, 6, c);
+  matrix.drawPixel(2, 6, c);
+  matrix.drawPixel(5, 6, c);
+  matrix.drawFastHLine(2, 7, 4, c);
+}
     
 void loop() {
   if (checkModeButton(PIN_MODE_BTN)) {
@@ -128,14 +165,23 @@ void loop() {
       matrix.fillScreen(0);
     } else if ((mode == 1) || (mode == 2)) {
       matrix.fillScreen(matrix.Color(255, 0, 0));
-    } else if (mode == 9) {
+    } else if ((mode == 3) || (mode == 4)) {
+      matrix.fillScreen(0);
+      drawDot(matrix.Color(255, 0, 0));
+    } else if (mode == 7) {
+      matrix.fillScreen(0);
+      drawSkull(matrix.Color(200, 200, 200));
+    } else if (mode == 8) {
       matrix.fillScreen(0);
       drawInvader(matrix.Color(180, 0, 255));
+    } else if (mode == 9) {
+      matrix.fillScreen(0);
+      drawChristmasTree(matrix.Color(50, 140, 50), matrix.Color(200, 55, 55));
     }
     matrix.show(); // Sends the updated pixel colors to the hardware.
     delay(100);
   }
-  if (mode == 2) {
+  if ((mode == 2) || (mode == 4)) {
     updateBrightEffect();
     delay(50);
   }
