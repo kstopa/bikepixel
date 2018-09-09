@@ -1,6 +1,6 @@
 # BikePixels
 
-NeoMatrix with Arduino for a back pack light to ride safty by night.
+NeoMatrix with Arduino for a rear bicycle light with custom images and effects to ride safty by night.
 
 ## Components
 
@@ -14,7 +14,7 @@ To build your own Bike Pixel you should have all the elements listed bellow:
 * 1 x 1000 uf/6.3V capacitator;
 * 1 x 6 AAA battery holder (but you can try any other power source);
 * 1 x on\off botton (optional if your battery holder have one built-in);
-* Wires and soldering stuff;
+* wires and soldering stuff;
 * the case.
     
 If you have all the components you can assemble it following the next schema.
@@ -34,7 +34,7 @@ All required application to edit and design Bike Pixel are open sourced. Bellow 
 At the docs folder you can find the sketches and the draws with schemas and case model so you can send this data to any manufacturer to cut and print it by you or just DIY.
 
 ### Case
-The case is designed to be made joining three layers of plexy. The base is made of 1 mm plexy black board, then the middle should have 4 o 5 mm and the final should be 1 mm of transparent plexy. The design and draws can be found at docs/case folder. The final result should look similar to:
+The case is designed to be made joining three layers of plexy. The base is made of 1 mm plexy black board, then the middle should have 5 or 6 mm and the final should be 1 mm of transparent plexy. The design and draws can be found at docs/case folder. The final result should look similar to:
 
 ![BikePixel case](./docs/case/case.png "BikePixel Case")
 
@@ -49,6 +49,12 @@ Production files are available in SVG and Gerber
 
 ## Setup
 To compile the source you'll need some extra libraries:
+
+* [Adafruit GFX](https://github.com/adafruit/Adafruit-GFX-Library)
+* [Adafruit NeoPixel](https://github.com/adafruit/Adafruit_NeoPixel)
+* [Adafruit NeoMatrix](https://github.com/adafruit/Adafruit_NeoMatrix)
+
+Note that you can install these libraries directly from Arduino Studio (Sketch menu, > Include Library > Manage Libraries) or by placing it after download into the Arduino Library folder (usally in your home).
 
 ## Assembling
 Bellow you can find step by step asseble Bike Pixel using the designed case and PCB. By now Arduino and batteries are kept apart from the main box with buttons and the neopixel matrix. The idea is to attach Bike Pixel to a back back. 
