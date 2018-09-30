@@ -45,10 +45,10 @@ you can find a case parts list:
 
 |      Piece      |            Thickness [mm]            |      Material     |                              CAD file                              |
 |:---------------:|:------------------------------------:|:-----------------:|:------------------------------------------------------------------:|
-|      Bottom     |                 1 or 2               |    Black plexi    | [case bottom.FCStd](docs/case/case bottom.FCStd)                   |
-|      Middle     |  7 or 8   (5 or 6 if optional layer) |    Black plexi    | [case middle.FCStd](docs/case/case middle.FCStd)                   |
-| Middle optional |                2 or 3                |    Black plexi    | [case middle optional.FCStd](docs/case/case middle optional.FCStd) |
-|       Top       |                1 or 2                | Transparent plexi | [case top.FCStd](docs/case/case top.FCStd)                         |
+|      Bottom     |                 1 or 2               |    Black plexi    | [case bottom.FCStd](docs/case/case%20bottom.FCStd)                   |
+|      Middle     |  7 or 8   (5 or 6 if optional layer) |    Black plexi    | [case middle.FCStd](docs/case/case%20middle.FCStd)                   |
+| Middle optional |                2 or 3                |    Black plexi    | [case middle optional.FCStd](docs/case/case%20middle%20optional.FCStd) |
+|       Top       |                1 or 2                | Transparent plexi | [case top.FCStd](docs/case/case%20top.FCStd)                         |
 
 To join the pices you'll need 1.6M screws and nuts with a length of 10 or 12 mm. 
 All the CAD files has been created using FreeCAD and can be found at 
