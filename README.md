@@ -6,16 +6,18 @@ NeoMatrix with Arduino for a rear bicycle light with custom images and effects t
 
 To build your own Bike Pixel you should have all the elements listed bellow:
 
-* Arduino UNO (or any other Ardiuno or compatible board);
+* Arduino Nano (or any other Ardiuno or compatible board);
 * 1 x NeoPixel 8x8 matrix;
 * 3 x touch switches;
 * 3 x 10 kΩ resistence;
 * 1 x 470 Ω resistence;
 * 1 x 1000 uf/6.3V capacitator;
-* 1 x 6 AAA battery holder (but you can try any other power source);
+* 1 x 6 AAA battery holder (but you can try any other power source like a smartphone external battery);
 * 1 x on\off botton (optional if your battery holder have one built-in);
 * wires and soldering stuff;
-* the case.
+* the case,
+* 9 x 1.6M screws with a length of 10 or 12 mm and nuts.
+* 4 x 1.6M screws with a length of 4 mm and nuts.
     
 If you have all the components you can assemble it following the next schema.
 
@@ -34,7 +36,24 @@ All required application to edit and design Bike Pixel are open sourced. Bellow 
 At the docs folder you can find the sketches and the draws with schemas and case model so you can send this data to any manufacturer to cut and print it by you or just DIY.
 
 ### Case
-The case is designed to be made joining three layers of plexy. The base is made of 1 mm plexy black board, then the middle should have 5 or 6 mm and the final should be 1 mm of transparent plexy. The design and draws can be found at docs/case folder. The final result should look similar to:
+
+The case is designed to be made by joining three (or four optionally) layers of 
+plexy. There are 2 possible configurations in both the base is made of 1 mm plexy 
+black board and the top should be made of an 1 mm transparent plexy. The middle 
+layers can be done with one 7-8 mm black board or two 5-6 mm + 2-3 mm boards. Bellow
+you can find a case parts list: 
+
+|      Piece      |            Thickness [mm]            |      Material     |                              CAD file                              |
+|:---------------:|:------------------------------------:|:-----------------:|:------------------------------------------------------------------:|
+|      Bottom     |                 1 or 2               |    Black plexi    | [case bottom.FCStd](docs/case/case bottom.FCStd)                   |
+|      Middle     |  7 or 8   (5 or 6 if optional layer) |    Black plexi    | [case middle.FCStd](docs/case/case middle.FCStd)                   |
+| Middle optional |                2 or 3                |    Black plexi    | [case middle optional.FCStd](docs/case/case middle optional.FCStd) |
+|       Top       |                1 or 2                | Transparent plexi | [case top.FCStd](docs/case/case top.FCStd)                         |
+
+To join the pices you'll need 1.6M screws and nuts with a length of 10 or 12 mm. 
+All the CAD files has been created using FreeCAD and can be found at 
+(docs/case)[docs/case] folder. Normally you will have to convert it to some other 
+format (DXF, PDF, SVG) to send it to production. The final result should look similar to:
 
 ![BikePixel case](./docs/case/case.png "BikePixel Case")
 
