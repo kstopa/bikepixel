@@ -38,7 +38,7 @@ NEO_RGB                   Pixels are wired for RGB bitstream (v1 FLORA pixels, n
      
 // Example for NeoPixel 8x8 Matrix.  In this application we'd like to use it 
 // with the back text positioned along the bottom edge.
-// When held that way, the first pixel is at the top left, and
+// When held that way, the first pixel is at the top left, and 
 // lines are arranged in columns, zigzag order.  The 8x8 matrix uses
 // 800 KHz (v2) pixels that expect GRB color data.
 Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, PIN_NEO_PIXEL,
@@ -93,10 +93,12 @@ bool checkModeButton(int pin) {
   // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
   if ((buttonState == HIGH) && (mode <= 9)) {
     mode++;
+    ticks = 0;
     return true;
   } else if ((buttonState == HIGH) && (mode >= 10)){
     // turn LED off:
     mode = 0;
+    ticks = 0;
     return true;
   } else {
     // No changes
@@ -109,23 +111,24 @@ bool checkBrightButton(int pin) {
   if (ticks < 5) return false;  // Avoid to read twice same button press
   buttonState = digitalRead(pin);
   if (buttonState == HIGH) {
-    brightMax += brightStep;
-    if (brightState >= 255) {
-      brightMax = brightMin;
+    brightMax += 10;
+    if (brightMax >= 255) {
+      brightMax = brightMin*2;
       brightStep = 1;
     } else {
       if (brightMax < 20) {
-        brightStep = 1;
-      } else if (brightMax < 50) {
         brightStep = 2;
+      } else if (brightMax < 50) {
+        brightStep = 3;
       } else if (brightMax < 100) {
-        brightStep = 5;
+        brightStep = 6;
       } else {
-        brightStep = 10;
+        brightStep = 12;
       }
     }
-    Serial.print(brightMax);
-    Serial.print(brightStep);
+    Serial.println(brightMax);
+    Serial.println(brightStep);
+    ticks = 0;
     return true;
   } else {
     return false;
@@ -137,7 +140,7 @@ void updateBrightEffect() {
   if (brightState >= brightMax) {
     brightState = brightMax;
     brightStep = -1 * brightStep;
-  } else if (brightState <= abs(brightStep)) {
+  } else if (brightState <= abs(brightMin)) {
     brightState = 5;
     brightStep =  abs(brightStep);
   }
@@ -148,6 +151,15 @@ void updateBrightEffect() {
 void drawDot(uint32_t c) {
   
   matrix.fillCircle(4, 4, 3, c);
+}
+
+void drawPercent(uint32_t c, int cur_val, int max_val) {
+  double indicator_length = 0;
+  matrix.fillScreen(0);
+  indicator_length = 8.0 * (cur_val * 1.0 / max_val * 1.0);
+  Serial.println(indicator_length);
+  matrix.drawFastHLine(0, 3, indicator_length, c);
+  matrix.drawFastHLine(0, 4, indicator_length, c);
 }
 
 void drawInvader(uint32_t c) {
@@ -205,10 +217,9 @@ void drawHeart(uint32_t c) {
   matrix.drawFastHLine(2, 5, 3, c);
   matrix.drawPixel(3, 6, c); 
 }
-    
-void loop() {
-  if (checkModeButton(PIN_MODE_BTN)) {
-    if (mode == 0) {
+
+void drawMode(int mode_id) {
+   if (mode == 0) {
       matrix.fillScreen(0);
     } else if ((mode == 1) || (mode == 2)) {  // Big square and blinking one
       matrix.fillScreen(matrix.Color(255, 0, 0));
@@ -229,11 +240,16 @@ void loop() {
       drawChristmasTree(matrix.Color(50, 140, 50), matrix.Color(200, 55, 55));
     }
     matrix.show(); // Sends the updated pixel colors to the hardware.
+}
+    
+void loop() {
+  if (checkModeButton(PIN_MODE_BTN)) {
+    drawMode(mode);
     delay(100);
   }
   if (checkBrightButton(PIN_BRIGHT_BTN)) {
-    
     matrix.setBrightness(brightMax);
+    drawPercent(matrix.Color(255, 255, 255), brightMax, 250);
     matrix.show();
     delay(50);
   } else {
@@ -244,7 +260,7 @@ void loop() {
     }
   }
   // To avoid duplicate operations
-  if (ticks < 1000) {
+  if (ticks < 100) {
     ticks += 1;
     delay(25);
   }

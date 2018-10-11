@@ -7,7 +7,7 @@ NeoMatrix with Arduino for a rear bicycle light with custom images and effects t
 To build your own Bike Pixel you should have all the elements listed bellow:
 
 * Arduino Nano (or any other Ardiuno or compatible board);
-* 1 x NeoPixel 8x8 matrix;
+* 1 x NeoPixel 8x8 matrix (flexible version recommended);
 * 3 x touch switches;
 * 3 x 10 kΩ resistence;
 * 1 x 470 Ω resistence;
