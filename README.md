@@ -8,16 +8,17 @@ To build your own Bike Pixel you should have all the elements listed bellow:
 
 * Arduino UNO (or any other Ardiuno or compatible board);
 * 1 x NeoPixel 8x8 matrix;
-* 3 x touch switches;
-* 3 x 10 kΩ resistence;
-* 1 x 470 Ω resistence;
+* 3 x touch switches (6x6x8mm);
+* 3 x 10 kΩ resistance;
+* 1 x 470 Ω resistance;
 * 1 x 1000 uf/6.3V capacitator;
-* 1 x 6 AAA battery holder (but you can try any other power source);
-* 1 x on\off botton (optional if your battery holder have one built-in);
 * Wires and soldering stuff;
-* the case.
-    
-If you have all the components you can assemble it following the next schema.
+* The plexi case;
+* 1 x 6 AAA battery holder (optional);
+* 1 x on\off botton (optional if your battery holder have one built-in);
+* 1 x Power bank 10000 mAh or more (optional).
+
+For the power supply you can use a Powerbank connected directly to the Arduino Nano board or a battery holder, also you can try any other power sources. Then if you have all the components you can assemble it following the next schema.
 
 ![BikePixel schema](./docs/electronics/sketch%20protoboard.png "BikePixel sketch")
 
@@ -64,4 +65,36 @@ Bellow you can find additional documentation and interesting stuff related with 
 * [Snowflake Sweater with Bluetooth Control example and tutorial](https://learn.adafruit.com/neopixel-matrix-snowflake-sweater/overview)
 * [Creation of a custom PCB on Fritzing](http://fritzing.org/pcb-custom-shape/). Note that if you use Incskape you should edit the SVG file (Saved as plain SVG) manually in any text editor and change the layer names (e.g `<g id="L4123">` to `<g id="silkscreen 1">`).
 
+## License
 
+As the project is compond by software, hardware and documentation each of these parts are licensed under the terms of specific license.
+
+### Software License
+
+Copyright © 2019 by BikePixels.com and contributors:
+
+* Krzysztof Stopa ([kstopa](https://github.com/kstopa/)).
+
+Bike Pixels contains free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
+
+Bike Pixels is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along with CAMS tools. If not, see http://www.gnu.org/licenses/.
+
+### Hardware License
+
+Copyright © 2019 by BikePixels.com and contributors:
+
+* Krzysztof Stopa ([kstopa](https://github.com/kstopa/)).
+
+Hardware elements is licensed under the CERN OHL v. 1.2.
+
+You may redistribute and modify this documentation under the terms of the CERN OHL v.1.2. (http://ohwr.org/cernohl). This documentation is distributed WITHOUT ANY EXPRESS OR IMPLIED WARRANTY, INCLUDING OF MERCHANTABILITY, SATISFACTORY QUALITY AND FITNESS FOR A PARTICULAR PURPOSE. Please see the CERN OHL v.1.2 for applicable conditions.
+
+### Documentation and images License
+
+Copyright © 2019 by BikePixels.com and contributors:
+
+* Krzysztof Stopa ([kstopa](https://github.com/kstopa/)).
+
+Documentation and image files are distributed under the Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) lisence. The full text of the license can be found at the [CC BY-NC-SA 4.0 page](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
