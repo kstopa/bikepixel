@@ -31,14 +31,14 @@ NEO_RGB                   Pixels are wired for RGB bitstream (v1 FLORA pixels, n
 -----------------------------------------------------------------------*/
 #define FACTORYRESET_ENABLE     1
 
-#define PIN_MODE_BTN            4
-#define PIN_ADD_BRG_BTN         5
-#define PIN_REM_BRG_BTN         6
-#define PIN_NEO_PIXEL           7   
+#define PIN_MODE_BTN            2
+#define PIN_BRIGHT_BTN          3
+#define PIN_COLOR_BTN           4
+#define PIN_NEO_PIXEL           5   
      
 // Example for NeoPixel 8x8 Matrix.  In this application we'd like to use it 
 // with the back text positioned along the bottom edge.
-// When held that way, the first pixel is at the top left, and
+// When held that way, the first pixel is at the top left, and 
 // lines are arranged in columns, zigzag order.  The 8x8 matrix uses
 // 800 KHz (v2) pixels that expect GRB color data.
 Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, PIN_NEO_PIXEL,
@@ -61,36 +61,76 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, PIN_NEO_PIXEL,
  *  8 - Invader
  *  9 - Christmas tree
  */
-int mode = 0;
-int buttonState = 0; 
-int brightState = 10;
-int brightStep = 2;
+int mode = 0; 
+int brightMin = 5;    // Minimum bright
+int brightState = 25; // Current bright status (for effects)
+int brightStep = 5;
 int brightMax = 50;
+// Numer of updates since last button pressed.
+int ticks = 0;
 
 void setup(void)
 {
   // Matrix initialization
   matrix.begin();
-  matrix.setBrightness(brightState);
+  matrix.setBrightness(brightMax);
  
   matrix.fillScreen(0);
   matrix.show(); // This sends the updated pixel colors to the hardware.
   // Other
   pinMode(PIN_MODE_BTN, INPUT);
+  pinMode(PIN_BRIGHT_BTN, INPUT);
+  pinMode(PIN_COLOR_BTN, INPUT);
+  
+
+  Serial.begin(9600);
 }
 
 bool checkModeButton(int pin) {
+  int buttonState = 0;
+  if (ticks < 5) return false;  // Avoid to read twice same button press
   buttonState = digitalRead(pin);
   // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
   if ((buttonState == HIGH) && (mode <= 9)) {
     mode++;
+    ticks = 0;
     return true;
   } else if ((buttonState == HIGH) && (mode >= 10)){
     // turn LED off:
     mode = 0;
+    ticks = 0;
     return true;
   } else {
     // No changes
+    return false;
+  }
+}
+
+bool checkBrightButton(int pin) {
+  int buttonState = 0;
+  if (ticks < 5) return false;  // Avoid to read twice same button press
+  buttonState = digitalRead(pin);
+  if (buttonState == HIGH) {
+    brightMax += 10;
+    if (brightMax >= 255) {
+      brightMax = brightMin*2;
+      brightStep = 1;
+    } else {
+      if (brightMax < 20) {
+        brightStep = 2;
+      } else if (brightMax < 50) {
+        brightStep = 3;
+      } else if (brightMax < 100) {
+        brightStep = 6;
+      } else {
+        brightStep = 12;
+      }
+    }
+    Serial.println(brightMax);
+    Serial.println(brightStep);
+    ticks = 0;
+    return true;
+  } else {
     return false;
   }
 }
@@ -99,10 +139,10 @@ void updateBrightEffect() {
   brightState += brightStep;
   if (brightState >= brightMax) {
     brightState = brightMax;
-    brightStep = -2;
-  } else if (brightState <= 2) {
-    brightState = 2;
-    brightStep = 2;
+    brightStep = -1 * brightStep;
+  } else if (brightState <= abs(brightMin)) {
+    brightState = 5;
+    brightStep =  abs(brightStep);
   }
   matrix.setBrightness(brightState);
   matrix.show();
@@ -111,6 +151,15 @@ void updateBrightEffect() {
 void drawDot(uint32_t c) {
   
   matrix.fillCircle(4, 4, 3, c);
+}
+
+void drawPercent(uint32_t c, int cur_val, int max_val) {
+  double indicator_length = 0;
+  matrix.fillScreen(0);
+  indicator_length = 8.0 * (cur_val * 1.0 / max_val * 1.0);
+  Serial.println(indicator_length);
+  matrix.drawFastHLine(0, 3, indicator_length, c);
+  matrix.drawFastHLine(0, 4, indicator_length, c);
 }
 
 void drawInvader(uint32_t c) {
@@ -158,31 +207,61 @@ void drawSkull(uint32_t c) {
   matrix.drawPixel(5, 6, c);
   matrix.drawFastHLine(2, 7, 4, c);
 }
-    
-void loop() {
-  if (checkModeButton(PIN_MODE_BTN)) {
-    if (mode == 0) {
+
+void drawHeart(uint32_t c) {
+  matrix.drawFastHLine(1, 1, 2, c);
+  matrix.drawFastHLine(4, 1, 2, c);
+  matrix.drawFastHLine(0, 2, 7, c);
+  matrix.drawFastHLine(0, 3, 7, c);
+  matrix.drawFastHLine(1, 4, 5, c);
+  matrix.drawFastHLine(2, 5, 3, c);
+  matrix.drawPixel(3, 6, c); 
+}
+
+void drawMode(int mode_id) {
+   if (mode == 0) {
       matrix.fillScreen(0);
-    } else if ((mode == 1) || (mode == 2)) {
+    } else if ((mode == 1) || (mode == 2)) {  // Big square and blinking one
       matrix.fillScreen(matrix.Color(255, 0, 0));
-    } else if ((mode == 3) || (mode == 4)) {
+    } else if ((mode == 3) || (mode == 4)) {  // Circle and blinking circle
       matrix.fillScreen(0);
       drawDot(matrix.Color(255, 0, 0));
-    } else if (mode == 7) {
+    } else if ((mode == 5) || (mode == 6)) {  // Heart and blinking heart
+      matrix.fillScreen(0);
+      drawHeart(matrix.Color(255, 0, 0));
+    } else if (mode == 7) { // Scull
       matrix.fillScreen(0);
       drawSkull(matrix.Color(200, 200, 200));
-    } else if (mode == 8) {
+    } else if (mode == 8) { // Space invader
       matrix.fillScreen(0);
       drawInvader(matrix.Color(180, 0, 255));
-    } else if (mode == 9) {
+    } else if (mode == 9) { // Tree
       matrix.fillScreen(0);
       drawChristmasTree(matrix.Color(50, 140, 50), matrix.Color(200, 55, 55));
     }
     matrix.show(); // Sends the updated pixel colors to the hardware.
+}
+    
+void loop() {
+  if (checkModeButton(PIN_MODE_BTN)) {
+    drawMode(mode);
     delay(100);
   }
-  if ((mode == 2) || (mode == 4)) {
-    updateBrightEffect();
+  if (checkBrightButton(PIN_BRIGHT_BTN)) {
+    matrix.setBrightness(brightMax);
+    drawPercent(matrix.Color(255, 255, 255), brightMax, 250);
+    matrix.show();
     delay(50);
+  } else {
+    // Update blinking effect
+    if ((mode == 2) || (mode == 4) || (mode == 6)) {
+      updateBrightEffect();
+      delay(50);
+    }
+  }
+  // To avoid duplicate operations
+  if (ticks < 100) {
+    ticks += 1;
+    delay(25);
   }
 }

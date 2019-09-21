@@ -1,41 +1,61 @@
 # BikePixels
 
-NeoMatrix with Arduino for a back pack light to ride safty by night.
+NeoMatrix with Arduino for a rear bicycle light with custom images and effects to ride safty by night.
 
 ## Components
 
 To build your own Bike Pixel you should have all the elements listed bellow:
 
-* Arduino UNO (or any other Ardiuno or compatible board);
-* 1 x NeoPixel 8x8 matrix;
-* 3 x touch switches (6x6x8mm);
-* 3 x 10 kΩ resistance;
-* 1 x 470 Ω resistance;
+* Arduino Nano (or any other Ardiuno or compatible board);
+* 1 x NeoPixel 8x8 matrix (flexible version recommended);
+* 3 x touch switches;
+* 3 x 10 kΩ resistence;
+* 1 x 470 Ω resistence;
 * 1 x 1000 uf/6.3V capacitator;
-* Wires and soldering stuff;
-* The plexi case;
+* 1 x 6 AAA battery holder (but you can try any other power source like a smartphone external battery);
+* 1 x on\off botton (optional if your battery holder have one built-in);
+* 9 x 1.6M screws with a length of 10 or 12 mm and nuts.
+* 4 x 1.6M screws with a length of 4 mm and nuts.
+* wires and soldering stuff;
+* the case;
 * 1 x 6 AAA battery holder (optional);
 * 1 x on\off botton (optional if your battery holder have one built-in);
 * 1 x Power bank 10000 mAh or more (optional).
-
+    
 For the power supply you can use a Powerbank connected directly to the Arduino Nano board or a battery holder, also you can try any other power sources. Then if you have all the components you can assemble it following the next schema.
 
 ![BikePixel schema](./docs/electronics/sketch%20protoboard.png "BikePixel sketch")
 
 ## Software
-All required application to edit and design Bike Pixel are open sourced. Bellow you can find all the used tools:
+All required applications to edit and design BikePixel are open sourced. Bellow you can find all the used tools:
 
-* [Arduino IDE](https://www.arduino.cc/en/Main/Software): to write, biuld and upload code to the Arduino board.
+* [Arduino IDE](https://www.arduino.cc/en/Main/Software): to write, biuld and upload the code to the Arduino board.
 * [Fritzing](http://fritzing.org/download/): to design electronic schemas and the PCB.
 * [Inkscape](https://inkscape.org/en/release/): to design custom parts for Fritzing (e.g. the board).
 * [FreeCAD](https://www.freecadweb.org/wiki/Download): to design the case.
 
-    
 ## Sketches
 At the docs folder you can find the sketches and the draws with schemas and case model so you can send this data to any manufacturer to cut and print it by you or just DIY.
 
 ### Case
-The case is designed to be made joining three layers of plexy. The base is made of 1 mm plexy black board, then the middle should have 4 o 5 mm and the final should be 1 mm of transparent plexy. The design and draws can be found at docs/case folder. The final result should look similar to:
+
+The case is designed to be made by joining three (or four optionally) layers of 
+plexy. There are 2 possible configurations in both the base is made of 1 mm plexy 
+black board and the top should be made of an 1 mm transparent plexy. The middle 
+layers can be done with one 7-8 mm black board or two 5-6 mm + 2-3 mm boards. Bellow
+you can find a case parts list: 
+
+|      Piece      |            Thickness [mm]            |      Material     |                              CAD file                              |
+|:---------------:|:------------------------------------:|:-----------------:|:------------------------------------------------------------------:|
+|      Bottom     |                 1 or 2               |    Black plexi    | [case bottom.FCStd](docs/case/case%20bottom.FCStd)                   |
+|      Middle     |  7 or 8   (5 or 6 if optional layer) |    Black plexi    | [case middle.FCStd](docs/case/case%20middle.FCStd)                   |
+| Middle optional |                2 or 3                |    Black plexi    | [case middle optional.FCStd](docs/case/case%20middle%20optional.FCStd) |
+|       Top       |                1 or 2                | Transparent plexi | [case top.FCStd](docs/case/case%20top.FCStd)                         |
+
+To join the pices you'll need 1.6M screws and nuts with a length of 10 or 12 mm. 
+All the CAD files has been created using FreeCAD and can be found at 
+(docs/case)[docs/case] folder. Normally you will have to convert it to some other 
+format (DXF, PDF, SVG) to send it to production. The final result should look similar to:
 
 ![BikePixel case](./docs/case/case.png "BikePixel Case")
 
@@ -49,7 +69,13 @@ Production files are available in SVG and Gerber
 
 
 ## Setup
-To compile the source you'll need some extra libraries:
+To compile the BikePixel [code for Arduino](./bikepixel_sketch/bikepixel_sketch.ino), you'll need some extra libraries:
+
+* [Adafruit GFX](https://github.com/adafruit/Adafruit-GFX-Library)
+* [Adafruit NeoPixel](https://github.com/adafruit/Adafruit_NeoPixel)
+* [Adafruit NeoMatrix](https://github.com/adafruit/Adafruit_NeoMatrix)
+
+Note that you can install these libraries directly from Arduino Studio (Sketch menu, > Include Library > Manage Libraries) or by placing it after download into the Arduino Library folder (usally in your home).
 
 ## Assembling
 Bellow you can find step by step asseble Bike Pixel using the designed case and PCB. By now Arduino and batteries are kept apart from the main box with buttons and the neopixel matrix. The idea is to attach Bike Pixel to a back back. 
