@@ -123,4 +123,4 @@ Copyright © 2019 by BikePixels.com and contributors:
 
 * Krzysztof Stopa ([kstopa](https://github.com/kstopa/)).
 
-Documentation and image files are distributed under the Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) lisence. The full text of the license can be found at the [CC BY-NC-SA 4.0 page](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
+Documentation and image files are distributed under the Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) lisence. The full text of the license can be found at the [CC BY-SA 4.0 page](https://creativecommons.org/licenses/by-sa/4.0/legalcode).
