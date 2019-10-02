@@ -62,10 +62,21 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, PIN_NEO_PIXEL,
  *  9 - Christmas tree
  */
 int mode = 0; 
+int vStep = 0;        // Vertical step for big images
+int vMove = 1;        // move right (1) or left (-1)
 int brightMin = 5;    // Minimum bright
-int brightState = 25; // Current bright status (for effects)
+int brightState = 10; // Current bright status (for effects)
 int brightStep = 5;
 int brightMax = 50;
+uint32_t red = matrix.Color(255, 0, 0);
+uint32_t orange = matrix.Color(253, 138, 59);
+uint32_t yellow = matrix.Color(249, 233, 63);
+uint32_t green = matrix.Color(161, 237, 45);
+uint32_t tree = matrix.Color(26, 174, 67);
+uint32_t blue = matrix.Color(20, 85, 75);
+uint32_t marine = matrix.Color(11, 81, 190);
+uint32_t violet = matrix.Color(210, 47, 210);
+uint32_t purple = matrix.Color(120, 20, 150); 
 // Numer of updates since last button pressed.
 int ticks = 0;
 
@@ -73,7 +84,7 @@ void setup(void)
 {
   // Matrix initialization
   matrix.begin();
-  matrix.setBrightness(brightMax);
+  matrix.setBrightness(brightState);
  
   matrix.fillScreen(0);
   matrix.show(); // This sends the updated pixel colors to the hardware.
@@ -148,14 +159,45 @@ void updateBrightEffect() {
   matrix.show();
 }
 
-void drawDot(uint32_t c) {
+/**
+ * Draw welcome message with along with the brightness setup.
+ */
+void drawWelcome(int step) {
+  step = ceil(step / 2);
+  if (step < 0) {
+    vMove = 1;
+    step = 0;
+  }
+  matrix.fillScreen(0);
+  // BikePixel
+  const int ROWS = 5;
+  const int COLS = 31; 
+  uint32_t welcome[ROWS][COLS] = {
+    {red, red, red, 0, orange, 0, yellow, 0,      0,      0, 0,     0,     0,     0, 0, tree, tree, tree, 0, blue, 0, 0,      0,      0,      0, 0,      0,      0,      0, purple, 0},
+    {red, 0,   red, 0, 0     , 0, yellow, 0,      0,      0, 0,     green, green, 0, 0, tree, 0,    tree, 0, 0,    0, 0,      0,      0,      0, 0,      violet, violet, 0, purple, 0},
+    {red, red, red, 0, orange, 0, yellow, 0,      yellow, 0, green, green, green, 0, 0, tree, tree, tree, 0, blue, 0, marine, 0,      marine, 0, violet, violet, violet, 0, purple, 0},
+    {red, 0,   red, 0, orange, 0, yellow, yellow, 0,      0, green, 0,     0,     0, 0, tree, 0,    0,    0, blue, 0, 0,      marine, 0,      0, violet, 0,      0,      0, purple, 0},
+    {red, red, red, 0, orange, 0, yellow, 0     , yellow, 0, 0    , green, green, 0, 0, tree, 0,    0,    0, blue, 0, marine, 0,      marine, 0, 0,      violet, violet, 0, purple, purple}   
+  };
   
+  for (int nr = 0; nr < ROWS; nr++) {
+    for (int nc = 0 + step; nc < max(8 + step, COLS); nc++) {
+      matrix.drawPixel(nc - step, nr, welcome[nr][nc]);  
+    }
+  }
+
+  if (step > COLS - 8) {
+    vMove = -1;
+    delay(500);
+  }
+}
+
+void drawDot(uint32_t c) {  
   matrix.fillCircle(4, 4, 3, c);
 }
 
 void drawPercent(uint32_t c, int cur_val, int max_val) {
   double indicator_length = 0;
-  matrix.fillScreen(0);
   indicator_length = 8.0 * (cur_val * 1.0 / max_val * 1.0);
   Serial.println(indicator_length);
   matrix.drawFastHLine(0, 3, indicator_length, c);
@@ -220,9 +262,9 @@ void drawHeart(uint32_t c) {
 
 void drawMode(int mode_id) {
    if (mode == 0) {
-      matrix.fillScreen(0);
+      drawWelcome(vStep);
     } else if ((mode == 1) || (mode == 2)) {  // Big square and blinking one
-      matrix.fillScreen(matrix.Color(255, 0, 0));
+      matrix.fillScreen(8);
     } else if ((mode == 3) || (mode == 4)) {  // Circle and blinking circle
       matrix.fillScreen(0);
       drawDot(matrix.Color(255, 0, 0));
@@ -247,16 +289,20 @@ void loop() {
     drawMode(mode);
     delay(100);
   }
-  if (checkBrightButton(PIN_BRIGHT_BTN)) {
+  // Setup bright only on 0 mode
+  if ((mode == 0) && (checkBrightButton(PIN_BRIGHT_BTN)) {
     matrix.setBrightness(brightMax);
-    drawPercent(matrix.Color(255, 255, 255), brightMax, 250);
-    matrix.show();
     delay(50);
   } else {
     // Update blinking effect
     if ((mode == 2) || (mode == 4) || (mode == 6)) {
       updateBrightEffect();
       delay(50);
+    }
+    if (mode == 0) {
+      drawMode(mode);
+      delay(100);
+      vStep += vMove;
     }
   }
   // To avoid duplicate operations
