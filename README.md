@@ -14,24 +14,26 @@ To build your own Bike Pixel you should have all the elements listed bellow:
 * 1 x 1000 uf/6.3V capacitator;
 * 1 x 6 AAA battery holder (but you can try any other power source like a smartphone external battery);
 * 1 x on\off botton (optional if your battery holder have one built-in);
-* wires and soldering stuff;
-* the case,
 * 9 x 1.6M screws with a length of 10 or 12 mm and nuts.
 * 4 x 1.6M screws with a length of 4 mm and nuts.
+* wires and soldering stuff;
+* the case;
+* 1 x 6 AAA battery holder (optional);
+* 1 x on\off botton (optional if your battery holder have one built-in);
+* 1 x Power bank 10000 mAh or more (optional).
     
-If you have all the components you can assemble it following the next schema.
+For the power supply you can use a Powerbank connected directly to the Arduino Nano board or a battery holder, also you can try any other power sources. Then if you have all the components you can assemble it following the next schema.
 
 ![BikePixel schema](./docs/electronics/sketch%20protoboard.png "BikePixel sketch")
 
 ## Software
-All required application to edit and design Bike Pixel are open sourced. Bellow you can find all the used tools:
+All required applications to edit and design BikePixel are open sourced. Bellow you can find all the used tools:
 
-* [Arduino IDE](https://www.arduino.cc/en/Main/Software): to write, biuld and upload code to the Arduino board.
+* [Arduino IDE](https://www.arduino.cc/en/Main/Software): to write, biuld and upload the code to the Arduino board.
 * [Fritzing](http://fritzing.org/download/): to design electronic schemas and the PCB.
 * [Inkscape](https://inkscape.org/en/release/): to design custom parts for Fritzing (e.g. the board).
 * [FreeCAD](https://www.freecadweb.org/wiki/Download): to design the case.
 
-    
 ## Sketches
 At the docs folder you can find the sketches and the draws with schemas and case model so you can send this data to any manufacturer to cut and print it by you or just DIY.
 
@@ -67,7 +69,7 @@ Production files are available in SVG and Gerber
 
 
 ## Setup
-To compile the source you'll need some extra libraries:
+To compile the BikePixel [code for Arduino](./bikepixel_sketch/bikepixel_sketch.ino), you'll need some extra libraries:
 
 * [Adafruit GFX](https://github.com/adafruit/Adafruit-GFX-Library)
 * [Adafruit NeoPixel](https://github.com/adafruit/Adafruit_NeoPixel)
@@ -89,4 +91,36 @@ Bellow you can find additional documentation and interesting stuff related with 
 * [Snowflake Sweater with Bluetooth Control example and tutorial](https://learn.adafruit.com/neopixel-matrix-snowflake-sweater/overview)
 * [Creation of a custom PCB on Fritzing](http://fritzing.org/pcb-custom-shape/). Note that if you use Incskape you should edit the SVG file (Saved as plain SVG) manually in any text editor and change the layer names (e.g `<g id="L4123">` to `<g id="silkscreen 1">`).
 
+## License
 
+As the project is compond by software, hardware and documentation each of these parts are licensed under the terms of specific license.
+
+### Software License
+
+Copyright © 2019 by BikePixels.com and contributors:
+
+* Krzysztof Stopa ([kstopa](https://github.com/kstopa/)).
+
+Bike Pixels contains free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
+
+Bike Pixels is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along with CAMS tools. If not, see http://www.gnu.org/licenses/.
+
+### Hardware License
+
+Copyright © 2019 by BikePixels.com and contributors:
+
+* Krzysztof Stopa ([kstopa](https://github.com/kstopa/)).
+
+Hardware elements is licensed under the CERN OHL v. 1.2.
+
+You may redistribute and modify this documentation under the terms of the CERN OHL v.1.2. (http://ohwr.org/cernohl). This documentation is distributed WITHOUT ANY EXPRESS OR IMPLIED WARRANTY, INCLUDING OF MERCHANTABILITY, SATISFACTORY QUALITY AND FITNESS FOR A PARTICULAR PURPOSE. Please see the CERN OHL v.1.2 for applicable conditions.
+
+### Documentation and images License
+
+Copyright © 2019 by BikePixels.com and contributors:
+
+* Krzysztof Stopa ([kstopa](https://github.com/kstopa/)).
+
+Documentation and image files are distributed under the Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) lisence. The full text of the license can be found at the [CC BY-NC-SA 4.0 page](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
