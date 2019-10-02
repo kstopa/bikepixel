@@ -66,8 +66,25 @@ int brightMin = 5;    // Minimum bright
 int brightState = 25; // Current bright status (for effects)
 int brightStep = 5;
 int brightMax = 50;
+int colorIndex = 0;
 // Numer of updates since last button pressed.
 int ticks = 0;
+
+/** Colors
+ *  0 = Red
+ *  1 = 
+ */
+ uint32_t colors[] = {
+  matrix.Color(255, 25, 25),    // Red
+  matrix.Color(220, 125, 220),  // Pink
+  matrix.Color(130, 0, 160),  // Violet
+  matrix.Color(40, 120, 220),  // Blue
+  matrix.Color(40, 140, 40),  // Green
+  matrix.Color(255, 255, 0),  // Yellow
+  matrix.Color(200, 200, 200),  // White
+    
+  
+ };
 
 void setup(void)
 {
@@ -106,13 +123,30 @@ bool checkModeButton(int pin) {
   }
 }
 
+bool checkColorButton(int pin) {
+  if (ticks < 5) return false;  // Avoid to read twice same button press
+  int buttonState = 0;
+  Serial.println(sizeof(colors)/4);
+  buttonState = digitalRead(pin);
+  if (buttonState == HIGH){ 
+    if (colorIndex + 1 < sizeof(colors)/4) {
+      colorIndex++;
+    } else {
+      colorIndex = 0;
+    }
+    ticks = 0;
+    return true;
+  }
+  return false;
+}
+
 bool checkBrightButton(int pin) {
   int buttonState = 0;
-  if (ticks < 5) return false;  // Avoid to read twice same button press
+  if (ticks < 2) return false;  // Avoid to read twice same button press
   buttonState = digitalRead(pin);
   if (buttonState == HIGH) {
-    brightMax += 10;
-    if (brightMax >= 255) {
+    brightMax += 5;
+    if (brightMax > 255) {
       brightMax = brightMin*2;
       brightStep = 1;
     } else {
@@ -121,9 +155,9 @@ bool checkBrightButton(int pin) {
       } else if (brightMax < 50) {
         brightStep = 3;
       } else if (brightMax < 100) {
-        brightStep = 6;
+        brightStep = 7;
       } else {
-        brightStep = 12;
+        brightStep = 15;
       }
     }
     Serial.println(brightMax);
@@ -145,6 +179,7 @@ void updateBrightEffect() {
     brightStep =  abs(brightStep);
   }
   matrix.setBrightness(brightState);
+  Serial.println(brightState);
   matrix.show();
 }
 
@@ -218,33 +253,38 @@ void drawHeart(uint32_t c) {
   matrix.drawPixel(3, 6, c); 
 }
 
-void drawMode(int mode_id) {
+void drawMode(int mode_id, uint32_t c) {
+   matrix.setBrightness(brightMax);
    if (mode == 0) {
       matrix.fillScreen(0);
     } else if ((mode == 1) || (mode == 2)) {  // Big square and blinking one
-      matrix.fillScreen(matrix.Color(255, 0, 0));
+      matrix.fillScreen(c);
     } else if ((mode == 3) || (mode == 4)) {  // Circle and blinking circle
       matrix.fillScreen(0);
-      drawDot(matrix.Color(255, 0, 0));
+      drawDot(c);
     } else if ((mode == 5) || (mode == 6)) {  // Heart and blinking heart
       matrix.fillScreen(0);
-      drawHeart(matrix.Color(255, 0, 0));
+      drawHeart(c);
     } else if (mode == 7) { // Scull
       matrix.fillScreen(0);
-      drawSkull(matrix.Color(200, 200, 200));
+      drawSkull(c);
     } else if (mode == 8) { // Space invader
       matrix.fillScreen(0);
-      drawInvader(matrix.Color(180, 0, 255));
+      drawInvader(c);
     } else if (mode == 9) { // Tree
       matrix.fillScreen(0);
-      drawChristmasTree(matrix.Color(50, 140, 50), matrix.Color(200, 55, 55));
+      drawChristmasTree(matrix.Color(50, 140, 50), c);
     }
     matrix.show(); // Sends the updated pixel colors to the hardware.
 }
     
 void loop() {
   if (checkModeButton(PIN_MODE_BTN)) {
-    drawMode(mode);
+    drawMode(mode, colors[colorIndex]);
+    delay(100);
+  }
+  if (checkColorButton(PIN_COLOR_BTN)) {
+    drawMode(mode, colors[colorIndex]);
     delay(100);
   }
   if (checkBrightButton(PIN_BRIGHT_BTN)) {
