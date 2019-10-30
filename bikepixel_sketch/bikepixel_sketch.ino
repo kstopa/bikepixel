@@ -68,7 +68,8 @@ int brightMin = 5;    // Minimum bright
 int brightState = 10; // Current bright status (for effects)
 int brightStep = 5;
 int brightMax = 50;
-uint32_t red = matrix.Color(255, 0, 0);
+
+uint32_t red = matrix.Color(255, 10, 10);
 uint32_t orange = matrix.Color(253, 138, 59);
 uint32_t yellow = matrix.Color(249, 233, 63);
 uint32_t green = matrix.Color(161, 237, 45);
@@ -77,8 +78,22 @@ uint32_t blue = matrix.Color(20, 85, 75);
 uint32_t marine = matrix.Color(11, 81, 190);
 uint32_t violet = matrix.Color(210, 47, 210);
 uint32_t purple = matrix.Color(120, 20, 150); 
+uint32_t white = matrix.Color(200, 200, 200); 
+int colorIndex = 0;
+
 // Numer of updates since last button pressed.
 int ticks = 0;
+
+// 
+ uint32_t colors[] = {
+  matrix.Color(255, 25, 25),    // Red
+  matrix.Color(220, 125, 220),  // Pink
+  matrix.Color(130, 0, 160),  // Violet
+  matrix.Color(40, 120, 220),  // Blue
+  matrix.Color(40, 140, 40),  // Green
+  matrix.Color(255, 255, 0),  // Yellow
+  matrix.Color(200, 200, 200),  // White
+ };
 
 void setup(void)
 {
@@ -117,13 +132,30 @@ bool checkModeButton(int pin) {
   }
 }
 
+bool checkColorButton(int pin) {
+  if (ticks < 5) return false;  // Avoid to read twice same button press
+  int buttonState = 0;
+  Serial.println(sizeof(colors)/4);
+  buttonState = digitalRead(pin);
+  if (buttonState == HIGH){ 
+    if (colorIndex + 1 < sizeof(colors)/4) {
+      colorIndex++;
+    } else {
+      colorIndex = 0;
+    }
+    ticks = 0;
+    return true;
+  }
+  return false;
+}
+
 bool checkBrightButton(int pin) {
   int buttonState = 0;
-  if (ticks < 5) return false;  // Avoid to read twice same button press
+  if (ticks < 2) return false;  // Avoid to read twice same button press
   buttonState = digitalRead(pin);
   if (buttonState == HIGH) {
-    brightMax += 10;
-    if (brightMax >= 255) {
+    brightMax += 5;
+    if (brightMax > 255) {
       brightMax = brightMin*2;
       brightStep = 1;
     } else {
@@ -132,9 +164,9 @@ bool checkBrightButton(int pin) {
       } else if (brightMax < 50) {
         brightStep = 3;
       } else if (brightMax < 100) {
-        brightStep = 6;
+        brightStep = 7;
       } else {
-        brightStep = 12;
+        brightStep = 15;
       }
     }
     Serial.println(brightMax);
@@ -156,28 +188,37 @@ void updateBrightEffect() {
     brightStep =  abs(brightStep);
   }
   matrix.setBrightness(brightState);
+  Serial.println(brightState);
   matrix.show();
+}
+
+void drawPercent(uint32_t c, int cur_val, int max_val) {
+  double indicator_length = 0;
+  indicator_length = 8.0 * (cur_val * 1.0 / max_val * 1.0);
+  Serial.println(indicator_length);
+  matrix.drawFastHLine(0, 7, indicator_length, c);
 }
 
 /**
  * Draw welcome message with along with the brightness setup.
  */
 void drawWelcome(int step) {
-  step = ceil(step / 2);
+  step = ceil(step / 1);
   if (step < 0) {
     vMove = 1;
     step = 0;
   }
   matrix.fillScreen(0);
   // BikePixel
-  const int ROWS = 5;
-  const int COLS = 31; 
+  const int ROWS = 6;
+  const int COLS = 40; 
   uint32_t welcome[ROWS][COLS] = {
-    {red, red, red, 0, orange, 0, yellow, 0,      0,      0, 0,     0,     0,     0, 0, tree, tree, tree, 0, blue, 0, 0,      0,      0,      0, 0,      0,      0,      0, purple, 0},
-    {red, 0,   red, 0, 0     , 0, yellow, 0,      0,      0, 0,     green, green, 0, 0, tree, 0,    tree, 0, 0,    0, 0,      0,      0,      0, 0,      violet, violet, 0, purple, 0},
-    {red, red, red, 0, orange, 0, yellow, 0,      yellow, 0, green, green, green, 0, 0, tree, tree, tree, 0, blue, 0, marine, 0,      marine, 0, violet, violet, violet, 0, purple, 0},
-    {red, 0,   red, 0, orange, 0, yellow, yellow, 0,      0, green, 0,     0,     0, 0, tree, 0,    0,    0, blue, 0, 0,      marine, 0,      0, violet, 0,      0,      0, purple, 0},
-    {red, red, red, 0, orange, 0, yellow, 0     , yellow, 0, 0    , green, green, 0, 0, tree, 0,    0,    0, blue, 0, marine, 0,      marine, 0, 0,      violet, violet, 0, purple, purple}   
+    {0,   0,   0,   0, 0,      0, 0,      0,      0,      0, 0,     0,     0,     0, 0, 0,    0,    0,    0, 0,    0, 0,      0,      0,      0, 0,      0,      0,      0, 0,      0,      0,   red, white, 0,     0,     0,      red,   red, 0},                    
+    {red, red, red, 0, orange, 0, yellow, 0,      0,      0, 0,     0,     0,     0, 0, tree, tree, tree, 0, blue, 0, 0,      0,      0,      0, 0,      0,      0,      0, purple, 0,      0,   0,   white, white, white, white,  white, 0,   0},
+    {red, 0,   red, 0, 0     , 0, yellow, 0,      0,      0, 0,     green, green, 0, 0, tree, 0,    tree, 0, 0,    0, 0,      0,      0,      0, 0,      violet, violet, 0, purple, 0,      0,   red, red,   0,     0,     0,      red,   red, 0},
+    {red, red, red, 0, orange, 0, yellow, 0,      yellow, 0, green, green, green, 0, 0, tree, tree, tree, 0, blue, 0, marine, 0,      marine, 0, violet, violet, violet, 0, purple, 0,      red, 0,   0,     red,   0,     red,    0,     0,   red},
+    {red, 0,   red, 0, orange, 0, yellow, yellow, 0,      0, green, 0,     0,     0, 0, tree, 0,    0,    0, blue, 0, 0,      marine, 0,      0, violet, 0,      0,      0, purple, 0,      red, 0,   0,     red,   0,     red,    0,     0,   red},
+    {red, red, red, 0, orange, 0, yellow, 0     , yellow, 0, 0    , green, green, 0, 0, tree, 0,    0,    0, blue, 0, marine, 0,      marine, 0, 0,      violet, violet, 0, purple, purple, 0,   red, red,   0,     0,     0,      red,   red, 0}   
   };
   
   for (int nr = 0; nr < ROWS; nr++) {
@@ -190,18 +231,12 @@ void drawWelcome(int step) {
     vMove = -1;
     delay(500);
   }
+
+  drawPercent(red, brightMax, 255);
 }
 
 void drawDot(uint32_t c) {  
   matrix.fillCircle(4, 4, 3, c);
-}
-
-void drawPercent(uint32_t c, int cur_val, int max_val) {
-  double indicator_length = 0;
-  indicator_length = 8.0 * (cur_val * 1.0 / max_val * 1.0);
-  Serial.println(indicator_length);
-  matrix.drawFastHLine(0, 3, indicator_length, c);
-  matrix.drawFastHLine(0, 4, indicator_length, c);
 }
 
 void drawInvader(uint32_t c) {
@@ -260,37 +295,42 @@ void drawHeart(uint32_t c) {
   matrix.drawPixel(3, 6, c); 
 }
 
-void drawMode(int mode_id) {
+void drawMode(int mode_id, uint32_t c) {
+   matrix.setBrightness(brightMax);
    if (mode == 0) {
       drawWelcome(vStep);
     } else if ((mode == 1) || (mode == 2)) {  // Big square and blinking one
-      matrix.fillScreen(8);
+      matrix.fillScreen(c);
     } else if ((mode == 3) || (mode == 4)) {  // Circle and blinking circle
       matrix.fillScreen(0);
-      drawDot(matrix.Color(255, 0, 0));
+      drawDot(c);
     } else if ((mode == 5) || (mode == 6)) {  // Heart and blinking heart
       matrix.fillScreen(0);
-      drawHeart(matrix.Color(255, 0, 0));
+      drawHeart(c);
     } else if (mode == 7) { // Scull
       matrix.fillScreen(0);
-      drawSkull(matrix.Color(200, 200, 200));
+      drawSkull(c);
     } else if (mode == 8) { // Space invader
       matrix.fillScreen(0);
-      drawInvader(matrix.Color(180, 0, 255));
+      drawInvader(c);
     } else if (mode == 9) { // Tree
       matrix.fillScreen(0);
-      drawChristmasTree(matrix.Color(50, 140, 50), matrix.Color(200, 55, 55));
+      drawChristmasTree(matrix.Color(50, 140, 50), c);
     }
     matrix.show(); // Sends the updated pixel colors to the hardware.
 }
     
 void loop() {
   if (checkModeButton(PIN_MODE_BTN)) {
-    drawMode(mode);
+    drawMode(mode, colors[colorIndex]);
+    delay(100);
+  }
+  if (checkColorButton(PIN_COLOR_BTN)) {
+    drawMode(mode, colors[colorIndex]);
     delay(100);
   }
   // Setup bright only on 0 mode
-  if ((mode == 0) && (checkBrightButton(PIN_BRIGHT_BTN)) {
+  if ((mode == 0) && checkBrightButton(PIN_BRIGHT_BTN)) {
     matrix.setBrightness(brightMax);
     delay(50);
   } else {
@@ -300,7 +340,7 @@ void loop() {
       delay(50);
     }
     if (mode == 0) {
-      drawMode(mode);
+      drawMode(mode, colors[colorIndex]);
       delay(100);
       vStep += vMove;
     }
