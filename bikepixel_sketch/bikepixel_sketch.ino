@@ -66,8 +66,8 @@ int vStep = 0;        // Vertical step for big images
 int vMove = 1;        // move right (1) or left (-1)
 int brightMin = 5;    // Minimum bright
 int brightState = 10; // Current bright status (for effects)
-int brightStep = 5;
-int brightMax = 50;
+int brightStep = 15;
+int brightMax = 255;
 
 uint32_t red = matrix.Color(255, 10, 10);
 uint32_t orange = matrix.Color(253, 138, 59);
@@ -80,7 +80,7 @@ uint32_t violet = matrix.Color(210, 47, 210);
 uint32_t purple = matrix.Color(120, 20, 150); 
 uint32_t white = matrix.Color(200, 200, 200); 
 int colorIndex = 0;
-
+int effect = 0; 
 // Numer of updates since last button pressed.
 int ticks = 0;
 
@@ -151,13 +151,13 @@ bool checkColorButton(int pin) {
 
 bool checkBrightButton(int pin) {
   int buttonState = 0;
-  if (ticks < 2) return false;  // Avoid to read twice same button press
+  if (ticks < 5) return false;  // Avoid to read twice same button press
   buttonState = digitalRead(pin);
   if (buttonState == HIGH) {
-    brightMax += 5;
+    brightMax += 32;
     if (brightMax > 255) {
-      brightMax = brightMin*2;
-      brightStep = 1;
+      brightMax = 31;
+      brightStep = 2;
     } else {
       if (brightMax < 20) {
         brightStep = 2;
@@ -169,7 +169,9 @@ bool checkBrightButton(int pin) {
         brightStep = 15;
       }
     }
+    Serial.println("B Max");
     Serial.println(brightMax);
+    Serial.println("B Step");
     Serial.println(brightStep);
     ticks = 0;
     return true;
@@ -192,11 +194,14 @@ void updateBrightEffect() {
   matrix.show();
 }
 
-void drawPercent(uint32_t c, int cur_val, int max_val) {
-  double indicator_length = 0;
-  indicator_length = 8.0 * (cur_val * 1.0 / max_val * 1.0);
+void drawPercent(uint32_t c, int cur_val) {
+  short indicator_length = 0;
+  indicator_length = (short) 8.0 * ((cur_val + 1) * 1.0/ 255.0);
+  Serial.println("Indicator:");
   Serial.println(indicator_length);
-  matrix.drawFastHLine(0, 7, indicator_length, c);
+  if (indicator_length > 0) {
+    matrix.drawFastHLine(0, 7, indicator_length, c);
+  }
 }
 
 /**
@@ -232,7 +237,7 @@ void drawWelcome(int step) {
     delay(500);
   }
 
-  drawPercent(red, brightMax, 255);
+  drawPercent(red, brightMax);
 }
 
 void drawDot(uint32_t c) {  
