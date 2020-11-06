@@ -1,18 +1,66 @@
 # BikePixels
 
-NeoMatrix with Arduino for a rear bicycle light with custom images and effects to ride safty by night.
+Neo Pixel Matrix with Arduino for a rear and fron bicycle light with custom images and effects to ride safly by night.
 
-## Components
+As it name indicates the Rear version is intended to be installed in the back part of the bike. You can attach it to a backback, the seat or attached to the bike structure. 
 
-To build your own Bike Pixel you should have all the elements listed bellow:
+## Bike Pixel Front
+
+By now the front version is the more advanced as it includes built-in battery and 3D printed case so it is easier to ensamble. Appart from the design it also varies in functionallities as it only include mode and color button. So all the effects (blink, heart beat, etc) are integrated as modes. Also default colors are intended to be used for front lights (white, yellow, light blue, etc.) altough you can still set up to almost any color you want.
+
+### Components
+
+To build your own Front version of a Bike Pixel you will need all the components that are listed bellow:
+
+* 1 x Arduino Pro Mini with USB;
+* 1 x NeoPixel 8x8 matrix (flexible version recommended);
+* 3 x touch switches;
+* 1 x SMDF on off switch
+* 2 x 10 kΩ resistence;
+* 1 x 470 Ω resistence;
+* 1 x button and connection PCB;
+* 1 x TP5100 charging module;
+* 1 x USB micro B module (to be integrated in the PCB in the future);
+* 2 x LiPo batteries (max 30x30x6mm);
+* 1 x 3D printed case (made of 3 elements);
+* 1 x esparadrapo belt;
+* wires and soldering stuff.
+
+### Case
+
+The case is designed to be 3D printed. All parts are designed using FreeCAD and STL production files are also included. It is composed by 3 pieces:
+
+* main body of the case, that can be printed as you wish;
+* a helper inner structure to hold the USB micro module and the TP5100 module;
+* a top cover that should be printed using a transparend PLA or cut in 1mm plexi.
+
+### PCB
+
+The PCB encapsulates the buttons and manage connections between the the Arduino board and the different modules. Its desing is shown belllow:
+
+### Code
+
+Arduino code can be found at the front/src folder. To build it chech the build section.
+
+### Assambly
+
+The main schematic to connect all the elements it is shown bellow.
+
+The first step is to get the button PCB and sold in all the buttons and the resistences. Then we can procede to start soldering all the connection between the fron the arduino board to the matrix and the TP5100 module.
+
+## Bike Pixel Rear
+
+### Components
+
+To build your own Bike Pixel Rear you should have all the elements listed bellow:
 
 * Arduino Nano (or any other Ardiuno or compatible board);
-* 1 x NeoPixel 8x8 matrix (flexible version recommended);
+* 1 x NeoPixel 4x4 matrix (30x30x3mm);
 * 3 x touch switches;
 * 3 x 10 kΩ resistence;
 * 1 x 470 Ω resistence;
-* 1 x 1000 uf/6.3V capacitator;
-* 1 x 6 AAA battery holder (but you can try any other power source like a smartphone external battery);
+* 1 x 1000 uf/6.3V capacitator (recommended but not used);
+* 1 x 6 AAA battery holder (but you can try any other power source like a power bank);
 * 1 x on\off botton (optional if your battery holder have one built-in);
 * 9 x 1.6M screws with a length of 10 or 12 mm and nuts.
 * 4 x 1.6M screws with a length of 4 mm and nuts.
@@ -24,20 +72,13 @@ To build your own Bike Pixel you should have all the elements listed bellow:
     
 For the power supply you can use a Powerbank connected directly to the Arduino Nano board or a battery holder, also you can try any other power sources. Then if you have all the components you can assemble it following the next schema.
 
-![BikePixel schema](./docs/electronics/sketch%20protoboard.png "BikePixel sketch")
+![BikePixel schema](./rear/electronics/sketch%20protoboard.png "BikePixel sketch")
 
-## Software
-All required applications to edit and design BikePixel are open sourced. Bellow you can find all the used tools:
 
-* [Arduino IDE](https://www.arduino.cc/en/Main/Software): to write, biuld and upload the code to the Arduino board.
-* [Fritzing](http://fritzing.org/download/): to design electronic schemas and the PCB.
-* [Inkscape](https://inkscape.org/en/release/): to design custom parts for Fritzing (e.g. the board).
-* [FreeCAD](https://www.freecadweb.org/wiki/Download): to design the case.
-
-## Sketches
+### Sketches
 At the docs folder you can find the sketches and the draws with schemas and case model so you can send this data to any manufacturer to cut and print it by you or just DIY.
 
-### Case
+#### Plexi Case
 
 The case is designed to be made by joining three (or four optionally) layers of 
 plexy. There are 2 possible configurations in both the base is made of 1 mm plexy 
@@ -57,19 +98,28 @@ All the CAD files has been created using FreeCAD and can be found at
 (docs/case)[docs/case] folder. Normally you will have to convert it to some other 
 format (DXF, PDF, SVG) to send it to production. The final result should look similar to:
 
-![BikePixel case](./docs/case/case.png "BikePixel Case")
+![BikePixel case](./rear/case/case.png "BikePixel Case")
 
 
-### PCB
-The PCB encapsulates the buttons and manage connections from Arduino to the neopixel matrix. It desing is shown belllow:
+#### PCB
+The PCB encapsulates the buttons and manage connections from Arduino to the neopixel 
+matrix. It desing is shown belllow:
 
-![BikePixel schema](./docs/electronics/sketch%20pcb.png "BikePixel PCB")
+![BikePixel schema](./rear/electronics/sketch%20pcb.png "BikePixel PCB")
 
 Production files are available in SVG and Gerber 
 
+## Software
+All required applications to edit and design BikePixel are open sourced. Bellow you can find all the used tools:
+
+* [Arduino IDE](https://www.arduino.cc/en/Main/Software): to write, biuld and upload the code to the Arduino board.
+* [Fritzing](http://fritzing.org/download/): to design electronic schemas and the PCB.
+* [Inkscape](https://inkscape.org/en/release/): to design custom parts for Fritzing (e.g. the board).
+* [FreeCAD](https://www.freecadweb.org/wiki/Download): to design the case.
+
 
 ## Setup
-To compile the BikePixel [code for Arduino](./bikepixel_sketch/bikepixel_sketch.ino), you'll need some extra libraries:
+To compile the BikePixel [code for Arduino](./rear/src/bikepixel_sketch.ino), you'll need some extra libraries:
 
 * [Adafruit GFX](https://github.com/adafruit/Adafruit-GFX-Library)
 * [Adafruit NeoPixel](https://github.com/adafruit/Adafruit_NeoPixel)

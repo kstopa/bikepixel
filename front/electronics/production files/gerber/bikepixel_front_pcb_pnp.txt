@@ -1,0 +1,30 @@
+*Pick And Place List
+*Company=
+*Author=
+*eMail=
+*
+*Project=bikepixel_front_pcb
+*Date=18:18:41
+*CreatedBy=Fritzing 0.9.3b.04.19.5c895d327c44a3114e5fcc9d8260daf0cbb52806
+*
+*
+*Coordinates in mm, always center of component
+*Origin 0/0=Lower left corner of PCB
+*Rotation in degree (0-360, math. pos.)
+*
+*No;Value;Package;X;Y;Rotation;Side;Name
+1;;;24.4379;-26.0545;0;Bottom;TXT4
+2;;tactile-pth;1.5269;-14.9582;90;Bottom;Mode
+3;220;THT;20.0769;-6.93549;90;Bottom;R2
+4;220;THT;14.9969;-14.5555;0;Bottom;R3
+5;;;24.0137;-28.7069;0;Bottom;TXT2
+6;;;4.02274;-27.7494;0;Bottom;TXT2
+7;;THT;14.9969;-1.85549;90;Bottom;J2
+8;;THT;15.0706;-28.7821;-90;Bottom;on/off
+9;;;5.36132;-28.7932;0;Bottom;TXT2
+10;;;24.4083;-21.9103;0;Bottom;TXT2
+11;220;THT;9.9169;-6.93549;90;Bottom;R1
+12;;tactile-pth;28.4669;-14.9591;-90;Bottom;Color
+13;;;15.1166;-14.5086;0;Bottom;IMG1
+14;;THT;14.9969;-19.6355;90;Bottom;J1
+15;;;24.4584;-26.0702;0;Top;TXT3
