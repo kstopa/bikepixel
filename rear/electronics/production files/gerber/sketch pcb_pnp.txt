@@ -4,7 +4,7 @@
 *eMail=
 *
 *Project=sketch pcb
-*Date=08:13:46
+*Date=18:46:41
 *CreatedBy=Fritzing 0.9.3b.04.19.5c895d327c44a3114e5fcc9d8260daf0cbb52806
 *
 *
@@ -13,20 +13,26 @@
 *Rotation in degree (0-360, math. pos.)
 *
 *No;Value;Package;X;Y;Rotation;Side;Name
-1;470;THT;37.4677;-17.001;0;Bottom;R1
-2;;;8.40031;-14.0248;0;Bottom;TXT2
-3;;;8.33028;-19.3255;0;Top;TXT3
-4;100k;THT;32.3877;-11.921;0;Bottom;R2
-5;10k;THT;17.1477;-9.38104;0;Bottom;R4
-6;;;8.69832;-14.9929;0;Bottom;TXT2
-7;100k;THT;32.3877;-9.38104;0;Bottom;R3
-8;;;8.35325;-19.3356;0;Bottom;TXT4
-9;;;1.9077;-23.0752;0;Bottom;Hole1
-10;;[THT];50.8777;-4.01124;0;Bottom;Brg+
-11;;;58.149;-23.0752;0;Bottom;Hole3
-12;;[THT];7.69776;-4.01122;0;Bottom;mode
-13;;THT;47.6277;-17.001;90;Bottom;J2
-14;;;1.9077;-1.76106;0;Bottom;Hole2
-15;;;58.149;-1.76106;0;Bottom;Hole4
-16;;[THT];39.2976;-4.01124;0;Bottom;Brg-
-17;;THT;23.4977;-17.001;90;Bottom;J1
+1;10k;THT;22.1107;-11.0349;0;Bottom;R4
+2;100k;THT;57.6707;-11.0349;0;Bottom;R3
+3;100k;THT;57.6707;-17.3849;0;Bottom;R2
+4;10k;THT;22.1107;-17.3849;0;Bottom;R6
+5;;THT;70.3707;-17.3849;90;Bottom;Matrix
+6;;;1.7907;-2.14493;0;Bottom;Hole2
+7;;;50.6258;-5.40829;0;Bottom;IMG1
+8;;;30.0492;-5.28453;0;Bottom;TXT2
+9;;;19.6937;-4.48521;0;Top;TXT3
+10;10k;THT;22.1107;-21.1949;0;Bottom;R5
+11;;THT;39.8907;-17.3849;90;Bottom;Main
+12;470;THT;57.6707;-21.1949;0;Bottom;R1
+13;;;19.6826;-4.47795;0;Bottom;TXT4
+14;;THT;40.1558;-0.618267;90;Bottom;on/off
+15;;;30.15;-6.85932;0;Bottom;TXT2
+16;;[THT];8.70064;-4.39513;0;Bottom;mode
+17;;THT;10.6807;-17.3849;90;Bottom;Power
+18;;;77.9908;-22.4649;0;Bottom;Hole3
+19;;;1.7907;-22.4649;0;Bottom;Hole1
+20;;;50.7453;-0.776154;0;Bottom;TXT5
+21;;[THT];72.2006;-4.39514;0;Bottom;Effect
+22;;;77.9908;-2.14493;0;Bottom;Hole4
+23;;[THT];60.7706;-4.39511;0;Bottom;Color
