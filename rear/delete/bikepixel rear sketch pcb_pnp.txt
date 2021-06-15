@@ -1,0 +1,38 @@
+*Pick And Place List
+*Company=
+*Author=
+*eMail=
+*
+*Project=bikepixel rear sketch pcb
+*Date=11:02:52
+*CreatedBy=Fritzing 0.9.4.2019-12-01.CD-498-0-a1ffcea
+*
+*
+*Coordinates in mm, always center of component
+*Origin 0/0=Lower left corner of PCB
+*Rotation in degree (0-360, math. pos.)
+*
+*No;Value;Package;X;Y;Rotation;Side;Name
+1;;tactile-pth;60.5007;-1.33494;0;Bottom;S2
+2;;tactile-pth;7.1607;-1.33494;0;Bottom;S1
+3;100k;THT;57.6707;-11.0349;0;Bottom;R3
+4;;;77.9908;-22.4649;0;Bottom;Hole3
+5;10k;THT;22.1107;-17.3849;0;Bottom;R6
+6;;;1.7907;-22.4649;0;Bottom;Hole1
+7;;;19.6937;-4.48521;0;Top;TXT3
+8;;;30.0492;-5.28453;0;Bottom;TXT2
+9;;;1.7907;-2.14493;0;Bottom;Hole2
+10;;THT;10.6807;-17.3849;90;Bottom;Power
+11;;THT;40.1558;-0.618267;90;Bottom;on/off
+12;470;THT;57.6707;-21.1949;0;Bottom;R1
+13;;;30.15;-6.85932;0;Bottom;TXT2
+14;10k;THT;22.1107;-21.1949;0;Bottom;R5
+15;;THT;39.8907;-17.3849;90;Bottom;Main
+16;;tactile-pth;71.9307;-1.33494;0;Bottom;S3
+17;;;50.7453;-0.776154;0;Bottom;TXT5
+18;;;50.6258;-5.40829;0;Bottom;IMG1
+19;;THT;70.3707;-17.3849;90;Bottom;Matrix
+20;100k;THT;57.6707;-17.3849;0;Bottom;R2
+21;;;77.9908;-2.14493;0;Bottom;Hole4
+22;10k;THT;22.1107;-11.0349;0;Bottom;R4
+23;;;19.6826;-4.47795;0;Bottom;TXT4

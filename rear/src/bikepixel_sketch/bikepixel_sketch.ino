@@ -6,11 +6,13 @@
 
 // PINs definitions
 #define PIN_BATT_STATUS         A0
-#define PIN_MODE_BTN            2
-#define PIN_BRIGHT_BTN          3
-#define PIN_COLOR_BTN           4
-#define PIN_NEO_PIXEL           5
+#define PIN_MODE_BTN            3
+#define PIN_BRIGHT_BTN          4
+#define PIN_COLOR_BTN           5
+#define PIN_NEO_PIXEL           6
 
+
+#define VMIN      3.6
 /*=========================================================================
 APPLICATION SETTINGS
                           
@@ -98,6 +100,7 @@ int ticks = 0;
   matrix.Color(200, 200, 200),  // White
  };
 // Battery voltage
+
 float vBat = 4.2;
  
 
@@ -188,8 +191,9 @@ bool checkBrightButton(int pin) {
 
 float checkBatteryStatus() {
   vBat = float(analogRead(PIN_BATT_STATUS));
-  vBat = 10.0*vBat/1024.0;      // Convert to voltage note that vcc (5V) is divided by 2
+  vBat = 5.0*vBat/1024.0;      // Convert to voltage note that vcc (5V) is divided by 2
   if (DEBUG) {
+    Serial.println("Vcc");
     Serial.println(vBat);
   }
   return vBat;
@@ -211,15 +215,11 @@ void updateBrightEffect() {
   matrix.show();
 }
 
-void drawPercent(uint32_t c, int cur_val) {
+void drawPercent(uint32_t c, int cur_val, float max_value, int row) {
   short indicator_length = 0;
-  indicator_length = (short) 8.0 * ((cur_val + 1) * 1.0/ 255.0);
-  if (DEBUG) {
-    Serial.println("Indicator:");
-    Serial.println(indicator_length);
-  }
+  indicator_length = (short) 8.0 * ((cur_val + 1) * 1.0/ max_value);
   if (indicator_length > 0) {
-    matrix.drawFastHLine(0, 7, indicator_length, c);
+    matrix.drawFastHLine(0, row, indicator_length, c);
   }
 }
 
@@ -256,7 +256,9 @@ void drawWelcome(int step) {
     delay(500);
   }
 
-  drawPercent(red, brightMax);
+  drawPercent(white, checkBatteryStatus()-VMIN, 4.2-VMIN, 6);
+  drawPercent(red, brightMax, 255.0, 7);
+  
 }
 
 void drawDot(uint32_t c) {  
