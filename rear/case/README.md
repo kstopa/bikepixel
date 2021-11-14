@@ -1,4 +1,7 @@
-This folder conaint all the needed files to build Bike Pixel Rear
+# Content
 
-* case_bikepixels_rear.FCStd: contains the main body designedwith FreeCad to be 3D printed.
-* plexi (folder): contains legacy case version design to be build with different layers of plexi.
+This folder conaint all the needed files to print a Bike Pixel L (or rear) case
+
+* body: FreeCAD file and production stl with the case main body.
+* cover: FreeCAD file and production stl, pdf and svg files with the body cover (as can be printed or cut on plexy).
+* holder: FreeCAD file and production of a holder to attach the body to the bike for different sizes. Includes production files for the bike attachment and a hook parts.

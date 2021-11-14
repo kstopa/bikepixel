@@ -66,15 +66,15 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, PIN_NEO_PIXEL,
  *  8 - Invader
  *  9 - Christmas tree
  */
-int mode = 0; 
+int mode = 6; 
 int vStep = 0;        // Vertical step for big images
 int vMove = 1;        // move right (1) or left (-1)
 int brightMin = 5;    // Minimum bright
-int brightState = 10; // Current bright status (for effects)
+int brightState = 240; // Current bright status (for effects)
 int brightStep = 15;
 int brightMax = 255;
 
-uint32_t red = matrix.Color(255, 10, 10);
+uint32_t red = matrix.Color(255, 20, 20);
 uint32_t orange = matrix.Color(253, 138, 59);
 uint32_t yellow = matrix.Color(249, 233, 63);
 uint32_t green = matrix.Color(161, 237, 45);
@@ -91,7 +91,7 @@ int ticks = 0;
 
 // 
  uint32_t colors[] = {
-  matrix.Color(255, 25, 25),    // Red
+  red,
   matrix.Color(220, 125, 220),  // Pink
   matrix.Color(130, 0, 160),  // Violet
   matrix.Color(40, 120, 220),  // Blue
@@ -103,6 +103,17 @@ int ticks = 0;
 
 float vBat = 4.2;
  
+// Welcome Bike Pixels moveing logo
+const int BP_ROWS = 6;
+const int BP_COLS = 40; 
+const uint32_t welcome[BP_ROWS][BP_COLS] = {
+  {0,   0,   0,   0, 0,      0, 0,      0,      0,      0, 0,     0,     0,     0, 0, 0,    0,    0,    0, 0,    0, 0,      0,      0,      0, 0,      0,      0,      0, 0,      0,      0,   red, white, 0,     0,     0,      red,   red, 0},                    
+  {red, red, red, 0, orange, 0, yellow, 0,      0,      0, 0,     0,     0,     0, 0, tree, tree, tree, 0, blue, 0, 0,      0,      0,      0, 0,      0,      0,      0, purple, 0,      0,   0,   white, white, white, white,  white, 0,   0},
+  {red, 0,   red, 0, 0     , 0, yellow, 0,      0,      0, 0,     green, green, 0, 0, tree, 0,    tree, 0, 0,    0, 0,      0,      0,      0, 0,      violet, violet, 0, purple, 0,      0,   red, red,   0,     0,     0,      red,   red, 0},
+  {red, red, red, 0, orange, 0, yellow, 0,      yellow, 0, green, green, green, 0, 0, tree, tree, tree, 0, blue, 0, marine, 0,      marine, 0, violet, violet, violet, 0, purple, 0,      red, 0,   0,     red,   0,     red,    0,     0,   red},
+  {red, 0,   red, 0, orange, 0, yellow, yellow, 0,      0, green, 0,     0,     0, 0, tree, 0,    0,    0, blue, 0, 0,      marine, 0,      0, violet, 0,      0,      0, purple, 0,      red, 0,   0,     red,   0,     red,    0,     0,   red},
+  {red, red, red, 0, orange, 0, yellow, 0     , yellow, 0, 0    , green, green, 0, 0, tree, 0,    0,    0, blue, 0, marine, 0,      marine, 0, 0,      violet, violet, 0, purple, purple, 0,   red, red,   0,     0,     0,      red,   red, 0}   
+};
 
 void setup(void)
 {
@@ -111,6 +122,7 @@ void setup(void)
   matrix.setBrightness(brightState);
   matrix.fillScreen(0);
   matrix.show(); // This sends the updated pixel colors to the hardware.
+  drawMode(mode, colors[colorIndex]);
   // PINs setup
   pinMode(PIN_MODE_BTN, INPUT);
   pinMode(PIN_BRIGHT_BTN, INPUT);
@@ -124,12 +136,12 @@ bool checkModeButton(int pin) {
   int buttonState = 0;
   if (ticks < 5) return false;  // Avoid to read twice same button press
   buttonState = digitalRead(pin);
-  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
-  if ((buttonState == HIGH) && (mode <= 9)) {
+  // Check if the pushbutton is pressed. If it is, the buttonState is LOW as they are pulled up
+  if ((buttonState == LOW) && (mode <= 9)) {
     mode++;
     ticks = 0;
     return true;
-  } else if ((buttonState == HIGH) && (mode >= 10)){
+  } else if ((buttonState == LOW) && (mode >= 10)){
     // turn LED off:
     mode = 0;
     ticks = 0;
@@ -160,7 +172,7 @@ bool checkBrightButton(int pin) {
   int buttonState = 0;
   if (ticks < 5) return false;  // Avoid to read twice same button press
   buttonState = digitalRead(pin);
-  if (buttonState == HIGH) {
+  if (buttonState == LOW) {
     brightMax += 32;
     if (brightMax > 255) {
       brightMax = 31;
@@ -233,25 +245,13 @@ void drawWelcome(int step) {
     step = 0;
   }
   matrix.fillScreen(0);
-  // BikePixel
-  const int ROWS = 6;
-  const int COLS = 40; 
-  uint32_t welcome[ROWS][COLS] = {
-    {0,   0,   0,   0, 0,      0, 0,      0,      0,      0, 0,     0,     0,     0, 0, 0,    0,    0,    0, 0,    0, 0,      0,      0,      0, 0,      0,      0,      0, 0,      0,      0,   red, white, 0,     0,     0,      red,   red, 0},                    
-    {red, red, red, 0, orange, 0, yellow, 0,      0,      0, 0,     0,     0,     0, 0, tree, tree, tree, 0, blue, 0, 0,      0,      0,      0, 0,      0,      0,      0, purple, 0,      0,   0,   white, white, white, white,  white, 0,   0},
-    {red, 0,   red, 0, 0     , 0, yellow, 0,      0,      0, 0,     green, green, 0, 0, tree, 0,    tree, 0, 0,    0, 0,      0,      0,      0, 0,      violet, violet, 0, purple, 0,      0,   red, red,   0,     0,     0,      red,   red, 0},
-    {red, red, red, 0, orange, 0, yellow, 0,      yellow, 0, green, green, green, 0, 0, tree, tree, tree, 0, blue, 0, marine, 0,      marine, 0, violet, violet, violet, 0, purple, 0,      red, 0,   0,     red,   0,     red,    0,     0,   red},
-    {red, 0,   red, 0, orange, 0, yellow, yellow, 0,      0, green, 0,     0,     0, 0, tree, 0,    0,    0, blue, 0, 0,      marine, 0,      0, violet, 0,      0,      0, purple, 0,      red, 0,   0,     red,   0,     red,    0,     0,   red},
-    {red, red, red, 0, orange, 0, yellow, 0     , yellow, 0, 0    , green, green, 0, 0, tree, 0,    0,    0, blue, 0, marine, 0,      marine, 0, 0,      violet, violet, 0, purple, purple, 0,   red, red,   0,     0,     0,      red,   red, 0}   
-  };
-  
-  for (int nr = 0; nr < ROWS; nr++) {
-    for (int nc = 0 + step; nc < max(8 + step, COLS); nc++) {
+  for (int nr = 0; nr < BP_ROWS; nr++) {
+    for (int nc = 0 + step; nc < max(8 + step, BP_COLS); nc++) {
       matrix.drawPixel(nc - step, nr, welcome[nr][nc]);  
     }
   }
 
-  if (step > COLS - 8) {
+  if (step > BP_COLS - 8) {
     vMove = -1;
     delay(500);
   }
