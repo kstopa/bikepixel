@@ -15,7 +15,7 @@ All required applications to edit and design the different Bike Pixel models are
 
 ## Bike Pixel L (or rear)
 
-![Bike Pixel L parts](./docs/images/bike-pixel-L-pack.png "Bike Pixel L Parts")
+![Bike Pixel L parts](docs/images/bike-pixel-L-pack.png "Bike Pixel L Parts")
 
 This model it is intended to be installed in the back part of the bike like the saddle or over bike structure. Main properties and parts:
 
@@ -58,14 +58,14 @@ The case is divided in multiple parts designed to be 3D printed. Current designs
 
 The body is composed the main body and a cover. You can print them using PLA altought for the cover a 1 mm thick piece of plexi is recommended.
 
-![Bike Pixel L body with cover](./docs/images/bike-pixel-L-body.png "Bike Pixel L body")
+![Bike Pixel L body with cover](docs/images/bike-pixel-L-body.png "Bike Pixel L body")
 
 You can get production files bellow.
 
 | Part |                       Files                        |  
 |------|----------------------------------------------------|
-| Body | [sld](./rear/case/body/case_bikepixels_rear.stl)   |
-| Cover| [sld](./rear/case/cover/case_bikepixels_rear_cover.stl), [svg](./rear/case/cover/case_bikepixels_rear_cover.svg), [pdf](./rear/case/cover/case_bikepixels_rear_cover.pdf) |
+| Body | [sld](rear/case/body/case_bikepixels_rear.stl)     |
+| Cover| [sld](rear/case/cover/case_bikepixels_rear_cover.stl), [svg](rear/case/cover/case_bikepixels_rear_cover.svg), [pdf](rear/case/cover/case_bikepixels_rear_cover.pdf) |
 
 
 #### Bike attachment 
@@ -78,8 +78,8 @@ You can get production files bellow.
 
 |  Part      |                           Files                             |
 |------------|-------------------------------------------------------------|
-| Hook       | [sld](./rear/case/holder/holder_base_28mm-holder_hook.stl)  |
-| Attachment | [sld](./rear/case/holder/holder_base_28mm-holder_attach.stl)|
+| Hook       | [sld](rear/case/holder/holder_base_28mm-holder_hook.stl)  |
+| Attachment | [sld](rear/case/holder/holder_base_28mm-holder_attach.stl)|
 
 ### Electronics
 
@@ -99,22 +99,20 @@ To build your L model you will need all the electronic parts listed bellow along
 
 The PCB encapsulates the switches and manage connections between the Arduino board, the step-up module and the RGB matrix. All the design have been created with KiCAD. All the source files including schematinc, netlist and PCB board are availble [here](./rear/electronics/bikepixel rear).
 
-![BikePixel schema](./docs/images/bike-pixel-L-pcb.png "BikePixel PCB")
+![BikePixel schema](docs/images/bike-pixel-L-pcb.png "BikePixel PCB")
 
 Production files are available in different formats and are linked bellow:
 
-|                         Format                             |
-|------------------------------------------------------------|
-| [gerber](./rear/electronics/production files/gerber)       |
-| [pdf](./rear/electronics/production files/pdf)             |
-| [svg](./rear/electronics/production files/svg)             |
+|                         Format                           |
+|----------------------------------------------------------|
+| [gerber](rear/electronics/production files/gerber)       |
+| [pdf](rear/electronics/production files/pdf)             |
+| [svg](rear/electronics/production files/svg)             |
  
 
 #### Assambley
 
 To connect evrything together please follow schema bellow.
-
-
 
 
 ## Code 
