@@ -156,7 +156,7 @@ bool checkColorButton(int pin) {
   if (ticks < 5) return false;  // Avoid to read twice same button press
   int buttonState = 0;
   buttonState = digitalRead(pin);
-  if (buttonState == HIGH){ 
+  if (buttonState == LOW){ 
     if (colorIndex + 1 < sizeof(colors)/4) {
       colorIndex++;
     } else {
