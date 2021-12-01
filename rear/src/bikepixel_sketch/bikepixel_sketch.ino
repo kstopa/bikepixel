@@ -55,7 +55,7 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, PIN_NEO_PIXEL,
 
 
 /** modes:
- *  0 - off
+ *  0 - Bike Pixel logo welcome 
  *  1 - full red square 
  *  2 - full red square blink effect (that changes in intensity)
  *  3 - red circle 
@@ -66,7 +66,7 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, PIN_NEO_PIXEL,
  *  8 - Invader
  *  9 - Christmas tree
  */
-int mode = 6; 
+int mode = 0; 
 int vStep = 0;        // Vertical step for big images
 int vMove = 1;        // move right (1) or left (-1)
 int brightMin = 5;    // Minimum bright
