@@ -78,8 +78,8 @@ You can get production files bellow.
 
 |  Part      |                           Files                             |
 |------------|-------------------------------------------------------------|
-| Hook       | [sld](rear/case/holder/holder_base_28mm-holder_hook.stl)  |
-| Attachment | [sld](rear/case/holder/holder_base_28mm-holder_attach.stl)|
+| Hook       | [sld](rear/case/holder/holder_base_28mm-holder_hook.stl)    |
+| Attachment | [sld](rear/case/holder/holder_base_28mm-holder_attach.stl)  |
 
 ### Electronics
 
@@ -97,23 +97,24 @@ To build your L model you will need all the electronic parts listed bellow along
 
 #### Conexions PCB
 
-The PCB encapsulates the switches and manage connections between the Arduino board, the step-up module and the RGB matrix. All the design have been created with KiCAD. All the source files including schematinc, netlist and PCB board are availble [here](./rear/electronics/bikepixel rear).
+The PCB encapsulates the switches and manage connections between the Arduino board, the step-up module and the RGB matrix. All the design have been created with KiCAD. All the source files including schematinc, netlist and PCB board are availble [here](./rear/electronics/bikepixel rear/).
 
-![BikePixel schema](docs/images/bike-pixel-L-pcb.png "BikePixel PCB")
+![Bike Pixel L PCB](docs/images/bike-pixel-L-pcb.png "Bike Pixel L PCB")
 
 Production files are available in different formats and are linked bellow:
 
-|                         Format                           |
-|----------------------------------------------------------|
-| [gerber](rear/electronics/production files/gerber)       |
-| [pdf](rear/electronics/production files/pdf)             |
-| [svg](rear/electronics/production files/svg)             |
+|                         Format                            |
+|-----------------------------------------------------------|
+| [gerber](rear/electronics/production files/gerber/)       |
+| [pdf](rear/electronics/production files/pdf/)             |
+| [svg](rear/electronics/production files/svg/)             |
  
 
 #### Assambley
 
-To connect evrything together please follow schema bellow.
+To connect evrything together please follow schema bellow. After soldering everthing you can proceed to upload the code to Arduino.
 
+![Bike Pixel L connection](docs/protoboard/bikepixel-L-connection-breadboard_bb.png "BikePixel PCB conection")
 
 ## Code 
 
