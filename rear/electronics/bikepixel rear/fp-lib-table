@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name Logo)(type KiCad)(uri "D:/Dropbox/BikePixels/hw/rear/electronics/bikepixel rear/logo.pretty")(options "")(descr "Bike Pixels Logo"))
+)
