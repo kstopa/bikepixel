@@ -92,7 +92,7 @@ To build your L model you will need all the electronic parts listed bellow along
 | Arduino Nano or Pro Mini     | Clone or original                      |
 | USB C TP4056 charging module | More information on [this blog entry](https://bikepixels.com/2019/11/10/how-to-add-a-lipo-battery-in-our-arduino-projects/)   |
 | 5V Step-up module            | Any module designed for LiPo batteries |
-| NeoPixel RGB matrix          | Flexible 80x80x2mm model               |
+| NeoPixel 8x8 RGB matrix      | Flexible 80x80x2mm model               |
 | >2000 LiPo battery           | Max. 4 mm thicknes                     |
 
 #### Conexions PCB
@@ -103,11 +103,11 @@ The PCB encapsulates the switches and manage connections between the Arduino boa
 
 Production files are available in different formats and are linked bellow:
 
-|                         Format                            |
-|-----------------------------------------------------------|
-| [gerber](rear/electronics/production files/gerber/)       |
-| [pdf](rear/electronics/production files/pdf/)             |
-| [svg](rear/electronics/production files/svg/)             |
+|                         Format                           |
+|----------------------------------------------------------|
+| [gerber](rear/electronics/production files/gerber)       |
+| [pdf](rear/electronics/production files/pdf)             |
+| [svg](rear/electronics/production files/svg)             |
  
 
 #### Assambley
@@ -125,6 +125,15 @@ To compile the BikePixel [code for Arduino](./rear/src/bikepixel_sketch.ino), yo
 * [Adafruit NeoMatrix](https://github.com/adafruit/Adafruit_NeoMatrix)
 
 Note that you can install these libraries directly from Arduino Studio (Sketch menu, > Include Library > Manage Libraries) or by placing it after download into the Arduino Library folder (usally in your home).
+
+## Certification
+
+Bike Pixel is certified by the Open Source Hardware Association ([OSHWA](https://en.wikipedia.org/wiki/Open_Source_Hardware_Association)). 
+OSWHA is a non-profit organization that advocates for open-source hardware focusing on promotion, education and comertialization of open 
+products. OSHWA also manages certification program for open-source hardware that indicate that given product meet standard criteria for 
+open-source compliance. Current Bike Pixel version has certificate number [PL000007](https://certification.oshwa.org/pl000007.html).
+
+![Bike Pixels OSHWA certificate PL000007](docs/images/bike-pixel-oshwa-certification-PL00007.png "Bike Pixels OSHWA certificate")
 
 ## License
 
