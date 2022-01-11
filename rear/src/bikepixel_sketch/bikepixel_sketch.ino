@@ -70,7 +70,7 @@ int mode = 0;
 int vStep = 0;        // Vertical step for big images
 int vMove = 1;        // move right (1) or left (-1)
 int brightMin = 5;    // Minimum bright
-int brightState = 240; // Current bright status (for effects)
+int brightState = 40; // Current bright status (for effects)
 int brightStep = 15;
 int brightMax = 255;
 
@@ -137,7 +137,7 @@ bool checkModeButton(int pin) {
   if (ticks < 5) return false;  // Avoid to read twice same button press
   buttonState = digitalRead(pin);
   // Check if the pushbutton is pressed. If it is, the buttonState is LOW as they are pulled up
-  if ((buttonState == LOW) && (mode <= 9)) {
+  if ((buttonState == LOW) && (mode <= 11)) {
     mode++;
     ticks = 0;
     return true;
@@ -280,6 +280,40 @@ void drawInvader(uint32_t c) {
   matrix.drawPixel(5, 6, c);
 }
 
+void drawThunder(uint32_t c) {
+  matrix.drawFastHLine(4, 0, 4, c);
+  matrix.drawFastHLine(3, 1, 3, c);
+  matrix.drawFastHLine(2, 2, 3, c);
+  matrix.drawFastHLine(1, 3, 3, c);
+  matrix.drawFastHLine(0, 4, 6, c);
+  matrix.drawFastHLine(3, 5, 2, c);
+  matrix.drawFastHLine(2, 6, 2, c);
+  matrix.drawPixel(2, 7, c);
+}
+
+void drawWarning(uint32_t c_triangle, uint32_t c_excl) {
+  matrix.fillRect(3, 0, 2, 2, c_triangle);
+  matrix.fillRect(2, 2, 4, 2, c_triangle);
+  matrix.fillRect(1, 4, 6, 2, c_triangle);
+  matrix.fillRect(0, 6, 8, 2, c_triangle);
+  // Exclamation mark
+  matrix.fillRect(3, 2, 2, 3, c_excl);
+  matrix.drawFastHLine(3, 6, 2, c_excl);
+}
+
+void drawGhost(uint32_t c) {
+  matrix.drawFastHLine(2, 0, 4, c);
+  matrix.drawFastHLine(1, 1, 6, c);
+  matrix.drawFastHLine(1, 2, 6, c);
+  matrix.drawFastHLine(0, 3, 2, c);
+  matrix.drawFastHLine(3, 3, 2, c);
+  matrix.drawFastHLine(6, 3, 2, c);
+  matrix.fillRect(0, 4, 8, 3, c);
+  matrix.drawFastHLine(0, 7, 2, c);
+  matrix.drawFastHLine(3, 7, 2, c);
+  matrix.drawFastHLine(6, 7, 2, c);
+}
+
 void drawChristmasTree(uint32_t c_tree, uint32_t c_dec) {
   matrix.drawFastHLine(3, 0, 2, matrix.Color(255, 255, 0)); // Yellow star
   // Tree
@@ -342,6 +376,15 @@ void drawMode(int mode_id, uint32_t c) {
     } else if (mode == 9) { // Tree
       matrix.fillScreen(0);
       drawChristmasTree(matrix.Color(50, 140, 50), c);
+    } else if (mode == 10) { // Thunder
+      matrix.fillScreen(0);
+      drawThunder(c);
+    } else if (mode == 11) {
+      matrix.fillScreen(0);
+      drawWarning(c, white);
+    } else if (mode == 12) {
+      matrix.fillScreen(0);
+      drawGhost(c);
     }
     matrix.show(); // Sends the updated pixel colors to the hardware.
 }
