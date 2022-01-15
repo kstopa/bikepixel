@@ -128,8 +128,8 @@ Note that you can install these libraries directly from Arduino Studio (Sketch m
 
 ## Certification
 
-Bike Pixel is certified by the Open Source Hardware Association ([OSHWA](https://en.wikipedia.org/wiki/Open_Source_Hardware_Association)). 
-OSWHA is a non-profit organization that advocates for open-source hardware focusing on promotion, education and comertialization of open 
+Bike Pixel is certified by the Open Source Hardware Association ([OSHWA](https://oshwa.org)). 
+OSWHA is a non-profit organization that advocates for open-source hardware focusing on promotion, education and commercialization of open 
 products. OSHWA also manages certification program for open-source hardware that indicate that given product meet standard criteria for 
 open-source compliance. Current Bike Pixel version has certificate number [PL000007](https://certification.oshwa.org/pl000007.html).
 
